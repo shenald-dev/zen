@@ -24,8 +24,13 @@ def focus_timer(minutes):
             time.sleep(1)
             progress.update(task, advance=1)
             
-    console.print("\n[bold gold1]✨ Flow complete.[/bold gold1] Take a breath.")
+    console.print("\n[bold gold1]🚀 Flow complete.[/bold gold1] Take a breath.")
 
 if __name__ == "__main__":
-    mins = int(sys.argv[1]) if len(sys.argv) > 1 else 25
-    focus_timer(mins)
+    try:
+        mins = int(sys.argv[1]) if len(sys.argv) > 1 else 25
+        focus_timer(mins)
+    except ValueError:
+        console.print("[bold red]Error:[/bold red] Please provide a valid number of minutes.")
+    except KeyboardInterrupt:
+        console.print("\n[bold red]Zen interrupted.[/bold red] Returning to the noise.")

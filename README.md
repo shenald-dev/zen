@@ -1,4 +1,4 @@
-# Zen
+# zen
 
 🧘 **Find your flow.**
 
@@ -10,7 +10,7 @@ Zen is a minimalist CLI tool designed to help you enter and maintain deep work s
 python src/main.py [minutes]
 ```
 
-## 🛠️ Features
+## ✨ Features
 
 - **Flow Timer:** Visual progress tracking for your deep work sessions.
 - **Minimalist Aesthetic:** Clean, distraction-free terminal UI.
