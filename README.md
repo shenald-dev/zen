@@ -10,10 +10,10 @@ Zen helps you implement the Pomodoro Technique with a clean, distraction-free in
 ## Features
 
 - Pomodoro timer (25min work, 5min break)
-- Session tracking and analytics
+- Session tracking
 - Desktop notifications (optional)
 - Configurable intervals
-- Terminal-based, no GUI needed
+- Terminal-based
 
 ## Installation
 
@@ -27,15 +27,9 @@ pip install zen-timer
 zen start
 ```
 
-Then focus. Zen will ring when it's time for a break.
-
 ## Why I Built Zen
 
-I kept getting distracted by complex productivity apps. I needed something that *stays out of my way* and just tells me when to work and when to rest. So I built it.
-
-## Screenshots
-
-(TODO: Add terminal screenshot)
+I kept getting distracted by complex productivity apps. I needed something that *stays out of my way*. So I built it.
 
 ## License
 
