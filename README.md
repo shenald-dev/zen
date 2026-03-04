@@ -2,9 +2,10 @@
 
 > Find your flow. A minimalist deep-work timer for focused building.
 
-Zen helps you implement the Pomodoro Technique with a clean, distraction-free interface.
+Zen helps you implement the Pomodoro Technique with a clean, distraction-free interface. No notifications, no clutter — just you and your work.
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python)
+[![CI](https://github.com/shenald-dev/zen/actions/workflows/ci.yml/badge.svg)](https://github.com/shenald-dev/zen/actions/workflows/ci.yml)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Features
