@@ -13,4 +13,10 @@ pip install zen-timer
 zen 25
 ```
 
+## 🤝 Contributing
+Want to help safeguard developer focus? Let's flow together! 🌊
+- 🐛 **Found a bug?** Open an issue to let us know.
+- ✨ **Have a feature idea?** We are open to PRs! Keep the UI minimal and the code beautiful.
+- 🎨 **Documentation tweaks?** Always welcome!
+
 *Crafted by a Vibe Coder. Protect your focus.*
