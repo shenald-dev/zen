@@ -1,0 +1,19 @@
+[project]
+name = "zen-timer"
+version = "0.1.0"
+description = "🧘 Deep-work timer. Simple terminal app for focus sessions. No GUI, just flow."
+authors = [
+    { name = "shenald-dev", email = "bot@shenald.dev" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "rich>=13.7.0",
+    "typer>=0.9.0"
+]
+
+[project.scripts]
+zen = "zen.timer:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
