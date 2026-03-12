@@ -3,14 +3,13 @@ import typer
 from rich.console import Console
 from rich.progress import Progress, BarColumn, TextColumn, TimeRemainingColumn
 from rich.panel import Panel
-from rich.layout import Layout
 from rich.align import Align
 
 app = typer.Typer(help="🧘 Deep-work terminal timer for focus sessions.")
 console = Console()
 
 @app.command()
-def focus(minutes: int = typer.Argument(25, help="Minutes to focus for")):
+def focus(minutes: int = typer.Argument(25, min=1, help="Minutes to focus for")):
     """Start a deep-work focus session."""
     seconds = minutes * 60
     
@@ -23,26 +22,34 @@ def focus(minutes: int = typer.Argument(25, help="Minutes to focus for")):
     console.print(Align.center(title))
     console.print("\n")
 
-    with Progress(
-        TextColumn("[progress.description]{task.description}"),
-        BarColumn(bar_width=60, style="magenta", complete_style="cyan"),
-        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-        TimeRemainingColumn(),
-        console=console,
-        transient=False,
-    ) as progress:
-        task = progress.add_task("[cyan]Flow State...", total=seconds)
-        
-        while not progress.finished:
-            time.sleep(1)
-            progress.advance(task)
+    try:
+        with Progress(
+            TextColumn("[progress.description]{task.description}"),
+            BarColumn(bar_width=60, style="magenta", complete_style="cyan"),
+            TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+            TimeRemainingColumn(),
+            console=console,
+            transient=False,
+        ) as progress:
+            task = progress.add_task("[cyan]Flow State...", total=seconds)
             
-    console.print("\n")
-    completion = Panel.fit(
-        "[bold green]✨ Focus session complete. Take a break.[/bold green]",
-        border_style="green"
-    )
-    console.print(Align.center(completion))
+            while not progress.finished:
+                time.sleep(1)
+                progress.advance(task)
+
+        console.print("\n")
+        completion = Panel.fit(
+            "[bold green]✨ Focus session complete. Take a break.[/bold green]",
+            border_style="green"
+        )
+        console.print(Align.center(completion))
+    except KeyboardInterrupt:
+        console.print("\n")
+        interrupted = Panel.fit(
+            "[bold red]❌ Focus session interrupted.[/bold red]\n[gray]Stay focused next time![/gray]",
+            border_style="red"
+        )
+        console.print(Align.center(interrupted))
     
 def main():
     app()

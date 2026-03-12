@@ -5,12 +5,23 @@
 ## Features
 - **🌊 Flow State**: Visually stunning, distraction-free TUI progress bar.
 - **⏱️ Flexible**: Configurable focus sessions. Break reminders.
+- **🛡️ Reliable**: Safe inputs and clean manual cancellations without dirty stack traces.
 - **🎨 Premium Aesthetic**: Powered by `Rich` and `Typer` to look incredible in any modern terminal emulator.
 
 ## Quick Start
 ```bash
 pip install zen-timer
 zen 25
+```
+
+## 🛠️ Development & Testing
+To set up the repository for development and run tests, install the `[dev]` dependencies:
+
+```bash
+git clone https://github.com/your-repo/zen-timer.git
+cd zen-timer
+pip install -e .[dev]
+pytest
 ```
 
 ## 🤝 Contributing
