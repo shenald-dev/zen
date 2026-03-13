@@ -32,10 +32,12 @@ def focus(minutes: int = typer.Argument(25, help="Minutes to focus for")):
         transient=False,
     ) as progress:
         task = progress.add_task("[cyan]Flow State...", total=seconds)
+        start_time = time.perf_counter()
         
         while not progress.finished:
-            time.sleep(1)
-            progress.advance(task)
+            elapsed = time.perf_counter() - start_time
+            progress.update(task, completed=min(elapsed, seconds))
+            time.sleep(0.1)
             
     console.print("\n")
     completion = Panel.fit(
