@@ -3,7 +3,6 @@ import typer
 from rich.console import Console
 from rich.progress import Progress, BarColumn, TextColumn, TimeRemainingColumn
 from rich.panel import Panel
-from rich.layout import Layout
 from rich.align import Align
 
 app = typer.Typer(help="🧘 Deep-work terminal timer for focus sessions.")
