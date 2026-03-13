@@ -10,7 +10,7 @@ app = typer.Typer(help="🧘 Deep-work terminal timer for focus sessions.")
 console = Console()
 
 @app.command()
-def focus(minutes: int = typer.Argument(25, help="Minutes to focus for")):
+def focus(minutes: int = typer.Argument(25, help="Minutes to focus for", min=1)):
     """Start a deep-work focus session."""
     seconds = minutes * 60
     
