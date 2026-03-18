@@ -35,6 +35,7 @@ def focus(minutes: int = typer.Argument(25, help="Minutes to focus for")):
             TimeRemainingColumn(),
             console=console,
             transient=False,
+            refresh_per_second=1,  # Optimize rendering for 1-second updates
         ) as progress:
             task = progress.add_task("[cyan]Flow State...", total=seconds)
 
