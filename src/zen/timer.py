@@ -3,7 +3,6 @@ import typer
 from rich.console import Console
 from rich.progress import Progress, BarColumn, TextColumn, TimeRemainingColumn
 from rich.panel import Panel
-from rich.layout import Layout
 from rich.align import Align
 
 app = typer.Typer(help="🧘 Deep-work terminal timer for focus sessions.")
@@ -39,9 +38,11 @@ def focus(minutes: int = typer.Argument(25, help="Minutes to focus for")):
         ) as progress:
             task = progress.add_task("[cyan]Flow State...", total=seconds)
 
+            start_time = time.monotonic()
             while not progress.finished:
-                time.sleep(1)
-                progress.advance(task)
+                time.sleep(0.1)
+                elapsed = time.monotonic() - start_time
+                progress.update(task, completed=min(elapsed, seconds))
 
         console.print("\n")
         completion = Panel.fit(
