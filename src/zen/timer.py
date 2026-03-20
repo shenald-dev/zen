@@ -40,7 +40,16 @@ def focus(minutes: int = typer.Argument(25, help="Minutes to focus for")):
 
             start_time = time.monotonic()
             while not progress.finished:
-                time.sleep(0.1)
+                elapsed = time.monotonic() - start_time
+                remaining = seconds - elapsed
+
+                if remaining <= 0:
+                    progress.update(task, completed=seconds)
+                    break
+
+                # Align sleep duration with 1Hz refresh rate to reduce CPU wakeups by 10x
+                time.sleep(min(1.0, remaining))
+
                 elapsed = time.monotonic() - start_time
                 progress.update(task, completed=min(elapsed, seconds))
 
