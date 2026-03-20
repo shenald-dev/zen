@@ -9,3 +9,11 @@ Rich's `Progress` bar defaults to 10Hz rendering which incurs unnecessary CPU ov
 
 Action:
 Explicitly set `refresh_per_second=1` in `Progress` instantiations whenever the task granularity is low to save CPU cycles without visibly impacting UX.
+
+## 2024-03-19 — Replace time.sleep() with time.monotonic() for timer accuracy
+
+Learning:
+Relying on cumulative `time.sleep(1)` loops in Python is inherently inaccurate due to the time overhead of rendering/execution and system scheduling. Over a 25+ minute focus session, the timer can drift significantly, meaning it ends later than exactly 25 real-world minutes.
+
+Action:
+Always use `time.monotonic()` (or `time.time()`) to calculate total elapsed time when building accurate timers or measurement tools, updating the progress based on `elapsed_time = current_time - start_time`, rather than summing sleep intervals.
