@@ -17,3 +17,11 @@ Relying on cumulative `time.sleep(1)` loops in Python is inherently inaccurate d
 
 Action:
 Always use `time.monotonic()` (or `time.time()`) to calculate total elapsed time when building accurate timers or measurement tools, updating the progress based on `elapsed_time = current_time - start_time`, rather than summing sleep intervals.
+
+## 2025-02-23 — Reduced CPU Wakeups in Timer Loop
+
+Learning:
+The `rich.progress.Progress` instance was configured for a 1Hz refresh rate (`refresh_per_second=1`), but the main focus loop was hardcoded to sleep for 0.1 seconds per iteration (`time.sleep(0.1)`). This meant the CPU woke up 10 times per second for no functional benefit, a common inefficiency in CLI/TUI apps.
+
+Action:
+Future timer or polling loops should calculate remaining time (`remaining = total - elapsed`) and sleep dynamically based on the UI refresh rate (e.g., `time.sleep(min(1.0, remaining))`), rather than busy-waiting with small static sleep intervals. This reduces battery drain and CPU usage while maintaining accuracy.
