@@ -27,6 +27,6 @@ def test_focus_keyboard_interrupt(mocker):
     mocker.patch("time.sleep", side_effect=KeyboardInterrupt)
     mocker.patch("time.monotonic", return_value=0.0)
     result = runner.invoke(app, ["1"])
-    # The application handles the interrupt gracefully, so it should exit 0
-    assert result.exit_code == 0
+    # The application handles the interrupt gracefully, and exits with 130
+    assert result.exit_code == 130
     assert "Session paused. Your focus still matters." in result.output

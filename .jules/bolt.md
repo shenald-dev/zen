@@ -25,3 +25,19 @@ The `rich.progress.Progress` instance was configured for a 1Hz refresh rate (`re
 
 Action:
 Future timer or polling loops should calculate remaining time (`remaining = total - elapsed`) and sleep dynamically based on the UI refresh rate (e.g., `time.sleep(min(1.0, remaining))`), rather than busy-waiting with small static sleep intervals. This reduces battery drain and CPU usage while maintaining accuracy.
+
+## 2026-03-20 — Lazy Loading Heavy Imports for CLI Startup Performance
+
+Learning:
+Importing heavy UI libraries like `rich` at the module level in Typer/CLI applications causes noticeable startup delay (~300-500ms) for fast commands like `--help`.
+
+Action:
+Move heavy, non-essential imports (e.g., `rich` components and instantiations) inside the actual command handler functions to lazy-load them only when the command is run.
+
+## 2026-03-20 — Standardized POSIX Exit Code for KeyboardInterrupt
+
+Learning:
+Catching a `KeyboardInterrupt` (Ctrl+C) and exiting normally (code 0) breaks standard POSIX expectations, making calling scripts think the command succeeded.
+
+Action:
+When catching a `KeyboardInterrupt` to cleanly handle terminal interruptions without tracebacks, always explicitly raise `typer.Exit(code=130)` (or `sys.exit(130)`) to correctly signal a SIGINT termination.
