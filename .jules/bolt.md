@@ -41,3 +41,11 @@ Catching a `KeyboardInterrupt` (Ctrl+C) and exiting normally (code 0) breaks sta
 
 Action:
 When catching a `KeyboardInterrupt` to cleanly handle terminal interruptions without tracebacks, always explicitly raise `typer.Exit(code=130)` (or `sys.exit(130)`) to correctly signal a SIGINT termination.
+
+## 2024-03-24 — Typer Validation and Loop Redundancies
+
+Learning:
+Manually validating CLI arguments inside the command function bypasses the robust, built-in validation of Typer/Click, leading to inconsistent error exit codes (1 instead of 2) and custom boilerplate code. Additionally, `rich.progress` handles background thread rendering, meaning duplicate state calculations (`time.monotonic()`) inside the hot loop to try and keep the progress bar updated instantly are redundant and waste CPU cycles.
+
+Action:
+Always use `typer.Argument` constraints (like `min=1`) to handle input validation automatically and keep the logic focused on domain logic. When writing loops with sleep and external renderers, calculate elapsed time once per iteration to avoid unnecessary syscalls.

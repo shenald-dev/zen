@@ -4,7 +4,7 @@ import typer
 app = typer.Typer(help="🧘 Deep-work terminal timer for focus sessions.")
 
 @app.command()
-def focus(minutes: int = typer.Argument(25, help="Minutes to focus for")):
+def focus(minutes: int = typer.Argument(25, min=1, help="Minutes to focus for")):
     """Start a deep-work focus session."""
     from rich.console import Console
     from rich.progress import Progress, BarColumn, TextColumn, TimeRemainingColumn
@@ -12,10 +12,6 @@ def focus(minutes: int = typer.Argument(25, help="Minutes to focus for")):
     from rich.align import Align
 
     console = Console()
-
-    if minutes < 1:
-        console.print("[bold red]Error:[/bold red] Focus duration must be at least 1 minute.")
-        raise typer.Exit(code=1)
 
     seconds = minutes * 60
 
@@ -41,18 +37,16 @@ def focus(minutes: int = typer.Argument(25, help="Minutes to focus for")):
             task = progress.add_task("[cyan]Flow State...", total=seconds)
 
             start_time = time.monotonic()
-            while not progress.finished:
+            while True:
                 elapsed = time.monotonic() - start_time
                 remaining = seconds - elapsed
 
+                progress.update(task, completed=min(elapsed, seconds))
+
                 if remaining <= 0:
-                    progress.update(task, completed=seconds)
                     break
 
                 time.sleep(min(1.0, remaining))
-
-                elapsed = time.monotonic() - start_time
-                progress.update(task, completed=min(elapsed, seconds))
 
         console.print("\n")
         completion = Panel.fit(
