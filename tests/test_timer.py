@@ -7,8 +7,8 @@ runner = CliRunner()
 def test_focus_invalid_minutes():
     """Test that focusing for less than 1 minute raises an error."""
     result = runner.invoke(app, ["0"])
-    assert result.exit_code == 1
-    assert "Focus duration must be at least 1 minute." in result.output
+    assert result.exit_code == 2
+    assert "Invalid value for '[MINUTES]': 0 is not in the range x>=1." in result.output
 
 def test_focus_valid_minutes(mocker):
     """Test a valid focus session."""
