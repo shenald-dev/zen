@@ -49,3 +49,11 @@ Manually validating CLI arguments inside the command function bypasses the robus
 
 Action:
 Always use `typer.Argument` constraints (like `min=1`) to handle input validation automatically and keep the logic focused on domain logic. When writing loops with sleep and external renderers, calculate elapsed time once per iteration to avoid unnecessary syscalls.
+
+## 2026-03-26 — Prevent Background Threads in Rich CLI Wait Loops
+
+Learning:
+Rich's `Progress` component defaults to `auto_refresh=True`, which spawns a secondary background thread to handle terminal rendering. In simple blocking loops (like timers or sleep waiters), this introduces unnecessary thread contention, syscalls, and context switching overhead.
+
+Action:
+When the main thread is already responsible for updating state in a loop and sleeping, instantiate `Progress(auto_refresh=False)` to prevent the secondary thread from spawning. Explicitly trigger `progress.update(..., refresh=True)` within the main loop to handle rendering synchronously.
