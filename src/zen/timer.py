@@ -33,24 +33,16 @@ def focus(minutes: int = typer.Argument(25, min=1, help="Minutes to focus for"))
             console=console,
             transient=False,
             refresh_per_second=1,  # Optimize rendering for 1-second updates
-            auto_refresh=False,  # Disable background thread overhead
         ) as progress:
             task = progress.add_task("[cyan]Flow State...", total=seconds)
-            progress.refresh()
 
             start_time = time.monotonic()
-            last_refresh = start_time
             while True:
                 current_time = time.monotonic()
                 elapsed = current_time - start_time
                 remaining = seconds - elapsed
 
-                # Only refresh the UI once per second to avoid terminal I/O overload
-                should_refresh = (current_time - last_refresh) >= 1.0 or remaining <= 0
-                if should_refresh:
-                    last_refresh = current_time
-
-                progress.update(task, completed=min(elapsed, seconds), refresh=should_refresh)
+                progress.update(task, completed=min(elapsed, seconds))
 
                 if remaining <= 0:
                     break

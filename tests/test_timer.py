@@ -15,7 +15,12 @@ def test_focus_valid_minutes(mocker):
     # Mock time.sleep to avoid actually waiting during the test
     mocker.patch("time.sleep")
     # Mock time.monotonic to instantly advance past the duration
-    mocker.patch("time.monotonic", side_effect=[0.0, 60.1, 60.1])
+    # We use a generator or function so it doesn't run out of side effects if rich calls it more
+    def mock_monotonic():
+        mock_monotonic.calls += 1
+        return 0.0 if mock_monotonic.calls == 1 else 60.1
+    mock_monotonic.calls = 0
+    mocker.patch("time.monotonic", side_effect=mock_monotonic)
     result = runner.invoke(app, ["1"])
     assert result.exit_code == 0
     assert "Zen Mode Activated" in result.output
