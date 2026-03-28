@@ -1,4 +1,3 @@
-import pytest
 from typer.testing import CliRunner
 from zen.timer import app
 
@@ -35,3 +34,10 @@ def test_focus_keyboard_interrupt(mocker):
     # The application handles the interrupt gracefully, and exits with 130
     assert result.exit_code == 130
     assert "Session paused. Your focus still matters." in result.output
+
+def test_main(mocker):
+    """Test that main() calls the Typer app."""
+    mock_app = mocker.patch("zen.timer.app")
+    from zen.timer import main
+    main()
+    mock_app.assert_called_once()
