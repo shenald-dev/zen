@@ -1,17 +1,18 @@
-"""Deep-work terminal timer for focus sessions."""
+"""🧘 Zen Timer. Simple terminal app for focus sessions."""
 import time
 import typer
+# pylint: disable=import-outside-toplevel
+# Import rich lazily inside the command for faster --help execution
 
 app = typer.Typer(help="🧘 Deep-work terminal timer for focus sessions.")
 
 
 @app.command()
-def focus(minutes: int = typer.Argument(
-    25, min=1, help="Minutes to focus for"
-)):
-    # pylint: disable=too-many-locals
+def focus(
+    minutes: int = typer.Argument(25, min=1, help="Minutes to focus for")
+):
     """Start a deep-work focus session."""
-    # pylint: disable=import-outside-toplevel
+    # pylint: disable=too-many-locals
     from rich.console import Console
     from rich.progress import (
         Progress, BarColumn, TextColumn, TimeRemainingColumn
@@ -42,7 +43,7 @@ def focus(minutes: int = typer.Argument(
             TimeRemainingColumn(),
             console=console,
             transient=False,
-            auto_refresh=False,
+            auto_refresh=False,  # Disable background thread for performance
         ) as progress:
             task = progress.add_task("[cyan]Flow State...", total=seconds)
 
@@ -81,7 +82,7 @@ def focus(minutes: int = typer.Argument(
 
 
 def main():
-    """Entry point for the application."""
+    """Main entrypoint for the CLI app."""
     app()
 
 
