@@ -57,3 +57,10 @@ Rich's `Progress` component defaults to `auto_refresh=True`, which spawns a seco
 
 Action:
 When the main thread is already responsible for updating state in a loop and sleeping, instantiate `Progress(auto_refresh=False)` to prevent the secondary thread from spawning. Explicitly trigger `progress.update(..., refresh=True)` within the main loop to handle rendering synchronously.
+
+## 2026-03-29 — Optimize rich.progress rendering
+Learning:
+When using `rich.progress.Progress` for slow-updating CLI apps (like a 1-second timer loop), leaving `auto_refresh=True` enabled causes the background thread to run continuously, wasting CPU cycles and sometimes causing testing artifacts where mocks need to account for unpredictable background thread calls.
+
+Action:
+Disable the background thread by setting `auto_refresh=False` and manually call `progress.refresh()` inside the synchronous hot loop after `progress.update()`. This aligns UI refreshes exactly with state updates, improving performance and making test behavior more deterministic.

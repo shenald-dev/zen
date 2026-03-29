@@ -1,29 +1,37 @@
+"""Tests for zen-timer."""
 from typer.testing import CliRunner
 from zen.timer import app
 
 runner = CliRunner()
 
+
 def test_focus_invalid_minutes():
     """Test that focusing for less than 1 minute raises an error."""
     result = runner.invoke(app, ["0"])
     assert result.exit_code == 2
-    assert "Invalid value for '[MINUTES]': 0 is not in the range x>=1." in result.output
+    err_msg = "Invalid value for '[MINUTES]': 0 is not in the range x>=1."
+    assert err_msg in result.output
+
 
 def test_focus_valid_minutes(mocker):
     """Test a valid focus session."""
     # Mock time.sleep to avoid actually waiting during the test
     mocker.patch("time.sleep")
+
     # Mock time.monotonic to instantly advance past the duration
-    # We use a generator or function so it doesn't run out of side effects if rich calls it more
+    # We use a generator or function so it doesn't run out of side effects
+    # if rich calls it more
     def mock_monotonic():
         mock_monotonic.calls += 1
         return 0.0 if mock_monotonic.calls == 1 else 60.1
+
     mock_monotonic.calls = 0
     mocker.patch("time.monotonic", side_effect=mock_monotonic)
     result = runner.invoke(app, ["1"])
     assert result.exit_code == 0
     assert "Zen Mode Activated" in result.output
     assert "Focus session complete" in result.output
+
 
 def test_focus_keyboard_interrupt(mocker):
     """Test handling of KeyboardInterrupt (Ctrl+C)."""
@@ -35,9 +43,11 @@ def test_focus_keyboard_interrupt(mocker):
     assert result.exit_code == 130
     assert "Session paused. Your focus still matters." in result.output
 
+
 def test_main(mocker):
     """Test that main() calls the Typer app."""
     mock_app = mocker.patch("zen.timer.app")
+    # pylint: disable=import-outside-toplevel
     from zen.timer import main
     main()
     mock_app.assert_called_once()

@@ -1,13 +1,22 @@
+"""🧘 Zen Timer. Simple terminal app for focus sessions."""
 import time
 import typer
+# pylint: disable=import-outside-toplevel
+# Import rich lazily inside the command for faster --help execution
 
 app = typer.Typer(help="🧘 Deep-work terminal timer for focus sessions.")
 
+
 @app.command()
-def focus(minutes: int = typer.Argument(25, min=1, help="Minutes to focus for")):
+def focus(
+    minutes: int = typer.Argument(25, min=1, help="Minutes to focus for")
+):
     """Start a deep-work focus session."""
+    # pylint: disable=too-many-locals
     from rich.console import Console
-    from rich.progress import Progress, BarColumn, TextColumn, TimeRemainingColumn
+    from rich.progress import (
+        Progress, BarColumn, TextColumn, TimeRemainingColumn
+    )
     from rich.panel import Panel
     from rich.align import Align
 
@@ -17,7 +26,9 @@ def focus(minutes: int = typer.Argument(25, min=1, help="Minutes to focus for"))
 
     console.clear()
     title = Panel.fit(
-        f"[bold cyan]🧘 Zen Mode Activated: {minutes} Minutes of Deep Work[/bold cyan]\n[gray]Do not disturb. No GUI, just flow.[/gray]",
+        f"[bold cyan]🧘 Zen Mode Activated: {minutes} "
+        "Minutes of Deep Work[/bold cyan]\n"
+        "[gray]Do not disturb. No GUI, just flow.[/gray]",
         border_style="cyan",
         padding=(1, 4)
     )
@@ -32,7 +43,7 @@ def focus(minutes: int = typer.Argument(25, min=1, help="Minutes to focus for"))
             TimeRemainingColumn(),
             console=console,
             transient=False,
-            refresh_per_second=1,  # Optimize rendering for 1-second updates
+            auto_refresh=False,  # Disable background thread for performance
         ) as progress:
             task = progress.add_task("[cyan]Flow State...", total=seconds)
 
@@ -43,6 +54,7 @@ def focus(minutes: int = typer.Argument(25, min=1, help="Minutes to focus for"))
                 remaining = seconds - elapsed
 
                 progress.update(task, completed=min(elapsed, seconds))
+                progress.refresh()  # Manually refresh the UI in the main loop
 
                 if remaining <= 0:
                     break
@@ -55,17 +67,21 @@ def focus(minutes: int = typer.Argument(25, min=1, help="Minutes to focus for"))
             border_style="green"
         )
         console.print(Align.center(completion))
-    except KeyboardInterrupt:
+    except KeyboardInterrupt as exc:
         console.print("\n")
         interrupted = Panel.fit(
-            "[bold yellow]⏸️  Session paused. Your focus still matters.[/bold yellow]",
+            "[bold yellow]⏸️  Session paused. "
+            "Your focus still matters.[/bold yellow]",
             border_style="yellow"
         )
         console.print(Align.center(interrupted))
-        raise typer.Exit(code=130)
-    
+        raise typer.Exit(code=130) from exc
+
+
 def main():
+    """Main entrypoint for the CLI app."""
     app()
+
 
 if __name__ == "__main__":
     main()
