@@ -7,3 +7,8 @@
 * **[Pruned]:** Removed an unused `pytest` import from the test suite.
 * **[Dependencies]:** Bumped minimum dependency baselines to `rich>=13.9.0` and `typer>=0.12.0`.
 * **[Testing]:** Added missing test coverage for the root CLI app module execution path.
+## [0.1.2] - 2026-03-27
+
+### Changed
+* **[Performance]:** Fixed `auto_refresh=False` parameter to correctly disable the `rich` background renderer thread.
+* **[Pruned]:** Fixed global linting issues, formatting, missing docstrings, and long lines across the codebase.
