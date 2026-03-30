@@ -53,13 +53,16 @@ def focus(
                 elapsed = current_time - start_time
                 remaining = seconds - elapsed
 
-                progress.update(task, completed=min(elapsed, seconds))
-                progress.refresh()  # Manually refresh the UI in the main loop
+                progress.update(
+                    task, completed=min(elapsed, seconds), refresh=True
+                )
 
                 if remaining <= 0:
                     break
 
-                time.sleep(min(1.0, remaining))
+                # Drift-compensated sleep to maintain exact 1Hz refresh rate
+                sleep_interval = 1.0 - (elapsed % 1.0)
+                time.sleep(min(sleep_interval, remaining))
 
         console.print("\n")
         completion = Panel.fit(
