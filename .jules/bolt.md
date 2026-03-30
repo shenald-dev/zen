@@ -64,3 +64,9 @@ When using `rich.progress.Progress` for slow-updating CLI apps (like a 1-second 
 
 Action:
 Disable the background thread by setting `auto_refresh=False` and manually call `progress.refresh()` inside the synchronous hot loop after `progress.update()`. This aligns UI refreshes exactly with state updates, improving performance and making test behavior more deterministic.
+
+## 2026-03-30 — Synchronous Progress Render Drift and `refresh=True`
+Learning:
+When rendering `rich` progress bars synchronously via `progress.update(...)` inside a loop, calling `progress.refresh()` separately is less efficient than passing `refresh=True` directly to `update()`. Furthermore, simply doing `time.sleep(1.0)` inside the loop causes visual drift, as the time taken to render pushes the start of the next sleep interval further away from the exact whole second.
+Action:
+Always use `progress.update(..., refresh=True)` to combine update and render in a single operation when `auto_refresh=False`. To fix visual drift in manual sleep loops, compensate for execution overhead with `sleep_interval = 1.0 - (elapsed % 1.0)`.
