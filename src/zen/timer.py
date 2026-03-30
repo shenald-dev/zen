@@ -59,7 +59,9 @@ def focus(
                 if remaining <= 0:
                     break
 
-                time.sleep(min(1.0, remaining))
+                # Drift-compensated sleep to ensure exact 1Hz UI refresh
+                sleep_interval = 1.0 - (elapsed % 1.0)
+                time.sleep(min(sleep_interval, remaining))
 
         console.print("\n")
         completion = Panel.fit(

@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.2] - 2026-03-30
+
+### Changed
+* **[Performance]:** Synchronized the underlying task loop's sleep duration directly with the UI refresh rate by implementing a drift-compensated sleep interval (`1.0 - (elapsed % 1.0)`). This prevents unnecessary CPU wakeups and eliminates visual timer drift during long focus sessions.
+
 ## [0.1.1] - 2026-03-27
 
 ### Changed
