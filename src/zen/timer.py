@@ -21,21 +21,20 @@ def focus(
     from rich.align import Align
 
     console = Console()
-
     seconds = minutes * 60
 
-    console.clear()
-    title = Panel.fit(
-        f"[bold cyan]🧘 Zen Mode Activated: {minutes} "
-        "Minutes of Deep Work[/bold cyan]\n"
-        "[gray]Do not disturb. No GUI, just flow.[/gray]",
-        border_style="cyan",
-        padding=(1, 4)
-    )
-    console.print(Align.center(title))
-    console.print("\n")
-
     try:
+        console.clear()
+        title = Panel.fit(
+            f"[bold cyan]🧘 Zen Mode Activated: {minutes} "
+            "Minutes of Deep Work[/bold cyan]\n"
+            "[gray]Do not disturb. No GUI, just flow.[/gray]",
+            border_style="cyan",
+            padding=(1, 4)
+        )
+        console.print(Align.center(title))
+        console.print("\n")
+
         with Progress(
             TextColumn("[progress.description]{task.description}"),
             BarColumn(bar_width=60, style="magenta", complete_style="cyan"),
