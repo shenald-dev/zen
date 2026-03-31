@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.3] - 2026-03-31
+
+### Changed
+* **[Bugfix]:** Expanded `try...except KeyboardInterrupt` block to encapsulate all terminal interactions, preventing unhandled exceptions and dirty terminal state if the user triggers an interrupt immediately upon startup.
+* **[Performance]:** Improved progress bar synchronous rendering by using `refresh=True` natively within `progress.update(...)`, saving redundant rendering cycles.
+
 ## [0.1.2] - 2026-03-30
 
 ### Changed
