@@ -12,3 +12,10 @@ Following the removal of the background progress thread, a static `time.sleep(1.
 
 Alignment / Deferred:
 Replaced static sleep with a drift-compensated exact 1Hz sleep calculation (`1.0 - (elapsed % 1.0)`). Updated CHANGELOG to document this performance/accuracy fix and cut patch release v0.1.2.
+
+2026-03-31 — Assessment & Lifecycle
+Observation / Pruned:
+Discovered a vulnerability in terminal interrupt handling where a fast user `Ctrl+C` immediately upon startup would circumvent the `Progress` block `try...except`, causing a traceback and a dirty terminal state due to unprotected `console.clear()` and `console.print()`.
+
+Alignment / Deferred:
+Expanded the `try...except KeyboardInterrupt` block scope to encapsulate all terminal interactions within the `focus` command, guaranteeing a clean posix 130 exit regardless of when the interrupt arrives. No dependencies bumped.
