@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.4] - 2026-03-31
+
+### Changed
+* **[Bugfix]:** Addressed an edge case where an extremely early `KeyboardInterrupt` during `rich.console` initialization would raise `UnboundLocalError` by pre-defining `console` and implementing a raw print fallback.
+* **[Pruned]:** Removed empty, unused `__init__.py` module from the root project directory.
+
 ## [0.1.3] - 2026-03-31
 
 ### Changed
