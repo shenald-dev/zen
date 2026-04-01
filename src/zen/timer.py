@@ -13,17 +13,18 @@ def focus(
 ):
     """Start a deep-work focus session."""
     # pylint: disable=too-many-locals
-    from rich.console import Console
-    from rich.progress import (
-        Progress, BarColumn, TextColumn, TimeRemainingColumn
-    )
-    from rich.panel import Panel
-    from rich.align import Align
-
-    console = Console()
     seconds = minutes * 60
+    console = None
 
     try:
+        from rich.console import Console
+        from rich.progress import (
+            Progress, BarColumn, TextColumn, TimeRemainingColumn
+        )
+        from rich.panel import Panel
+        from rich.align import Align
+
+        console = Console()
         console.clear()
         title = Panel.fit(
             f"[bold cyan]🧘 Zen Mode Activated: {minutes} "
@@ -70,13 +71,18 @@ def focus(
         )
         console.print(Align.center(completion))
     except KeyboardInterrupt as exc:
-        console.print("\n")
-        interrupted = Panel.fit(
-            "[bold yellow]⏸️  Session paused. "
-            "Your focus still matters.[/bold yellow]",
-            border_style="yellow"
-        )
-        console.print(Align.center(interrupted))
+        if console:
+            console.print("\n")
+            from rich.panel import Panel
+            from rich.align import Align
+            interrupted = Panel.fit(
+                "[bold yellow]⏸️  Session paused. "
+                "Your focus still matters.[/bold yellow]",
+                border_style="yellow"
+            )
+            console.print(Align.center(interrupted))
+        else:
+            print("\n⏸️  Session paused. Your focus still matters.")
         raise typer.Exit(code=130) from exc
 
 

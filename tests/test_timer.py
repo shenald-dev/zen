@@ -44,6 +44,19 @@ def test_focus_keyboard_interrupt(mocker):
     assert "Session paused. Your focus still matters." in result.output
 
 
+def test_focus_early_keyboard_interrupt(mocker):
+    """Test handling of KeyboardInterrupt before rich is initialized."""
+    # Simulate a KeyboardInterrupt right when Console is initialized
+    mocker.patch(
+        "rich.console.Console.__init__",
+        side_effect=KeyboardInterrupt
+    )
+    result = runner.invoke(app, ["1"])
+    # The application handles the interrupt gracefully and uses raw print
+    assert result.exit_code == 130
+    assert "Session paused. Your focus still matters." in result.output
+
+
 def test_main(mocker):
     """Test that main() calls the Typer app."""
     mock_app = mocker.patch("zen.timer.app")

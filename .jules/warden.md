@@ -19,3 +19,10 @@ Discovered a vulnerability in terminal interrupt handling where a fast user `Ctr
 
 Alignment / Deferred:
 Expanded the `try...except KeyboardInterrupt` block scope to encapsulate all terminal interactions within the `focus` command, guaranteeing a clean posix 130 exit regardless of when the interrupt arrives. No dependencies bumped.
+
+2026-03-31 — Assessment & Lifecycle (Hotfix)
+Observation / Pruned:
+Found a residual bug where if `KeyboardInterrupt` occurred before the `Console` instantiation finished, the variable was unassigned. Handled by pre-initializing the variable and providing a pure `print()` fallback. Entropy pruned: removed the unneeded `__init__.py` file at project root.
+
+Alignment / Deferred:
+Wrote tests simulating early interrupt and cut release v0.1.4. No dependencies bumped.
