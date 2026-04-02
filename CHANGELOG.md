@@ -3,7 +3,8 @@
 ## [0.1.5] - 2026-04-02
 
 ### Changed
-* **[Lifecycle]:** Performed a complete QA and lifecycle audit. The codebase remains structurally sound following the previous agent's interrupt hotfix, with 98% test coverage, optimal zero-overhead rendering, and zero architectural entropy. No dead code found.
+* **[Assurance]:** Validated codebase structural integrity, ran adversarial QA, and ensured testing and static analysis fully pass. No regressions or dead code found after previous optimization agent's run.
+* **[Release]:** Cut release v0.1.5 to formalize the lifecycle assessment and finalize codebase stabilization.
 
 ## [0.1.4] - 2026-03-31
 

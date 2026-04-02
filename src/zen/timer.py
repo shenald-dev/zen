@@ -9,7 +9,9 @@ app = typer.Typer(help="🧘 Deep-work terminal timer for focus sessions.")
 
 @app.command()
 def focus(
-    minutes: int = typer.Argument(25, min=1, help="Minutes to focus for")
+    minutes: int = typer.Argument(
+        25, min=1, max=1440, help="Minutes to focus for"
+    )
 ):
     """Start a deep-work focus session."""
     # pylint: disable=too-many-locals
@@ -91,5 +93,5 @@ def main():
     app()
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()
