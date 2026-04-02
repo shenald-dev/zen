@@ -9,7 +9,9 @@ def test_focus_invalid_minutes():
     """Test that focusing for less than 1 minute raises an error."""
     result = runner.invoke(app, ["0"])
     assert result.exit_code == 2
-    err_msg = "Invalid value for '[MINUTES]': 0 is not in the range 1<=x<=1440."
+    err_msg = (
+        "Invalid value for '[MINUTES]': 0 is not in the range 1<=x<=1440."
+    )
     assert err_msg in result.output
 
 
@@ -17,7 +19,9 @@ def test_focus_invalid_minutes_too_high():
     """Test that focusing for more than 1440 minutes raises an error."""
     result = runner.invoke(app, ["1500"])
     assert result.exit_code == 2
-    err_msg = "Invalid value for '[MINUTES]': 1500 is not in the range 1<=x<=1440."
+    err_msg = (
+        "Invalid value for '[MINUTES]': 1500 is not in the range 1<=x<=1440."
+    )
     assert err_msg in result.output
 
 

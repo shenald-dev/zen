@@ -78,3 +78,7 @@ When accepting numeric arguments that directly dictate loop durations or allocat
 
 Action:
 Always enforce reasonable, domain-specific upper bounds (`max=...`) on numeric arguments, even if the lower bound (`min=...`) is already checked.
+
+2024-04-02 — Drift-compensated tight loop throttling
+Learning: Disabling `rich.progress` auto-refresh and manually calling `refresh=True` inside a drift-compensated sleep loop is not enough to prevent high CPU utilization. If the sleep undershoots slightly, the `while True:` loop spins rapidly without sleeping meaningfully, resulting in hundreds of redundant terminal renders and pegging the CPU.
+Action: Always couple drift-compensated sleep with an explicit state check (e.g., `current_second > last_second`) to throttle expensive manual operations (like terminal I/O) within the loop, guaranteeing they only fire at the intended boundary regardless of sleep inaccuracies.
