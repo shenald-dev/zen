@@ -70,3 +70,11 @@ Learning:
 When rendering `rich` progress bars synchronously via `progress.update(...)` inside a loop, calling `progress.refresh()` separately is less efficient than passing `refresh=True` directly to `update()`. Furthermore, simply doing `time.sleep(1.0)` inside the loop causes visual drift, as the time taken to render pushes the start of the next sleep interval further away from the exact whole second.
 Action:
 Always use `progress.update(..., refresh=True)` to combine update and render in a single operation when `auto_refresh=False`. To fix visual drift in manual sleep loops, compensate for execution overhead with `sleep_interval = 1.0 - (elapsed % 1.0)`.
+
+## 2025-04-02 — Input Validation for Unbounded Loops
+
+Learning:
+When accepting numeric arguments that directly dictate loop durations or allocations (like `minutes` to focus for), omitting an upper bound (`max=1440`) allows extreme values. Even if integer overflow is not a concern in Python, extreme durations can cause floating-point drift or represent an obvious user typo that the application should handle gracefully instead of running blindly.
+
+Action:
+Always enforce reasonable, domain-specific upper bounds (`max=...`) on numeric arguments, even if the lower bound (`min=...`) is already checked.
