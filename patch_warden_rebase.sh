@@ -1,4 +1,4 @@
-sed -i '/<<<<<<< HEAD/,/>>>>>>> origin\/main/c\
+sed -i '/<<<<<<< HEAD/,/>>>>>>> 120007b (chore(lifecycle): assure, prune, and sync docs)/c\
 Validated the codebase after recent improvements. Codebase is clean, modular, and performant. Static analysis and test suite execution yielded zero errors and 98% coverage. No dead code or architectural vulnerabilities were found. Entropy is stable.\
 \
 Alignment / Deferred:\
