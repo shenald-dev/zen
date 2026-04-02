@@ -50,14 +50,20 @@ def focus(
             task = progress.add_task("[cyan]Flow State...", total=seconds)
 
             start_time = time.monotonic()
+            last_second = -1
+
             while True:
                 current_time = time.monotonic()
                 elapsed = current_time - start_time
                 remaining = seconds - elapsed
 
-                progress.update(
-                    task, completed=min(elapsed, seconds), refresh=True
-                )
+                # Only refresh UI when a full second has passed or session ends
+                current_second = int(elapsed)
+                if current_second > last_second or remaining <= 0:
+                    progress.update(
+                        task, completed=min(elapsed, seconds), refresh=True
+                    )
+                    last_second = current_second
 
                 if remaining <= 0:
                     break
