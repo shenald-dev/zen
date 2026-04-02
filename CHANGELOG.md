@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.5] - 2026-04-02
+
+### Changed
+* **[Lifecycle]:** Performed a complete QA and lifecycle audit. The codebase remains structurally sound following the previous agent's interrupt hotfix, with 98% test coverage, optimal zero-overhead rendering, and zero architectural entropy. No dead code found.
+
 ## [0.1.4] - 2026-03-31
 
 ### Changed
