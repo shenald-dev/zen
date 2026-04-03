@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6] - 2026-04-03
+
+### Changed
+* **[Assurance]:** Validated stability of the recent drift-compensated sleep loop and manual UI refresh optimization. No functional regressions were detected.
+* **[Pruned]:** Removed `test_cpu.py`, a development scratchpad file left over from the performance optimization run.
+* **[Release]:** Cut release v0.1.6 to conclude lifecycle pruning and stabilize the build.
+
 ## [0.1.5] - 2026-04-02
 
 ### Changed

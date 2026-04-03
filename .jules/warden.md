@@ -33,3 +33,10 @@ Validated the codebase after recent improvements. Codebase is clean, modular, an
 
 Alignment / Deferred:
 No dependency upgrades were applied as current baselines are fully adequate and safe. Documentation (CHANGELOG) synced to capture assurance validation. Cut patch release v0.1.5.
+
+2026-04-03 — Assessment & Lifecycle
+Observation / Pruned:
+Observed that a scratchpad script (`test_cpu.py`) used during the previous optimization run for measuring loop iterations was left over in the repository. Pruned this script to prevent codebase entropy.
+
+Alignment / Deferred:
+No additional code or architectural changes were necessary. The drift-compensated exact 1Hz sleep loop with manual throttling mechanism is fully stable. Cut patch release v0.1.6.
