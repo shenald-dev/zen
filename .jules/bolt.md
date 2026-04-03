@@ -82,3 +82,10 @@ Always enforce reasonable, domain-specific upper bounds (`max=...`) on numeric a
 2024-04-02 — Drift-compensated tight loop throttling
 Learning: Disabling `rich.progress` auto-refresh and manually calling `refresh=True` inside a drift-compensated sleep loop is not enough to prevent high CPU utilization. If the sleep undershoots slightly, the `while True:` loop spins rapidly without sleeping meaningfully, resulting in hundreds of redundant terminal renders and pegging the CPU.
 Action: Always couple drift-compensated sleep with an explicit state check (e.g., `current_second > last_second`) to throttle expensive manual operations (like terminal I/O) within the loop, guaranteeing they only fire at the intended boundary regardless of sleep inaccuracies.
+
+## 2026-04-04 — Drift-compensated Sleep Rendering Overhead
+Learning:
+When manually syncing terminal UI updates (e.g., `progress.update(..., refresh=True)`) before a drift-compensated `time.sleep()`, the execution time of the rendering block acts as an uncounted overhead if the sleep interval is calculated *before* rendering. This causes the loop to consistently oversleep by the exact duration of the render step.
+
+Action:
+Always recalculate elapsed time (`time.monotonic()`) immediately *after* the synchronous UI render and right *before* calculating and invoking the sleep interval to natively absorb execution overhead.
