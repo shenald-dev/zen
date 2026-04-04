@@ -6,7 +6,7 @@
 - **🌊 Flow State**: Visually stunning, distraction-free TUI progress bar.
 - **⏱️ Flexible**: Configurable focus sessions. Break reminders.
 - **🎨 Premium Aesthetic**: Powered by `Rich` and `Typer` to look incredible in any modern terminal emulator.
-- **🚀 Performance**: Lightning-fast startup with lazy-loaded imports and zero-overhead UI rendering.
+- **🚀 Performance**: Lightning-fast startup with lazy-loaded imports and exact precision zero-overhead UI rendering via drift-compensated event loops.
 
 ## Quick Start
 ```bash

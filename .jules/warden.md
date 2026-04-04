@@ -40,3 +40,10 @@ Observed that a scratchpad script (`test_cpu.py`) used during the previous optim
 
 Alignment / Deferred:
 No additional code or architectural changes were necessary. The drift-compensated exact 1Hz sleep loop with manual throttling mechanism is fully stable. Cut patch release v0.1.6.
+
+2026-04-04 — Assessment & Lifecycle
+Observation / Pruned:
+Validated the recent architectural shift to absorb rendering overhead natively into the drift-compensation calculation (`time.monotonic()` called after `progress.update`). The new sync loop is computationally optimal and drift-free. Tested the interrupt handlers after the UI library initialization fix. Test suites verify 100% coverage and structural stability. Entropy is minimal.
+
+Alignment / Deferred:
+Bumped minimum boundaries of core dependencies (`rich>=14.3.3`, `typer>=0.24.1`) to latest stable versions based on current ecosystem. Updated README.md to reflect exact precision features. Cut release v0.1.7.

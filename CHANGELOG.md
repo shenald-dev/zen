@@ -37,3 +37,7 @@
 * **[Pruned]:** Removed an unused `pytest` import from the test suite.
 * **[Dependencies]:** Bumped minimum dependency baselines to `rich>=13.9.0` and `typer>=0.12.0`.
 * **[Testing]:** Added missing test coverage for the root CLI app module execution path.
+
+## [0.1.7] - 2026-04-04
+
+* **[Lifecycle/Dependencies]:** Validated rendering overhead optimization, fully stabilizing exact-precision loop drift. Bumped core dependencies (`rich` to `14.3.3`, `typer` to `0.24.1`) to ensure optimal performance on modern environments. Synced README documentation.
