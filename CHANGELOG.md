@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.7] - 2026-04-05
+
+### Changed
+* **[Assurance]:** Validated the recent performance optimization that avoids redundant time recalculations in the timer loop. Codebase maintains 100% test coverage and static analysis compliance.
+* **[Release]:** Cut release v0.1.7.
+
 ## [0.1.6] - 2026-04-03
 
 ### Changed
