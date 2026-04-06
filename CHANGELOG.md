@@ -1,4 +1,10 @@
 # Changelog
+## [0.1.7] - 2026-04-06
+
+### Changed
+* **[Assurance]:** Validated codebase structural integrity, ran adversarial QA, and ensured testing and static analysis fully pass. No regressions or dead code found after previous optimization agent's run. The timer loop optimizations are safe and effective.
+* **[Release]:** Cut release v0.1.7 to formalize the lifecycle assessment and finalize codebase stabilization.
+
 
 ## [0.1.6] - 2026-04-03
 
