@@ -4,7 +4,10 @@ import typer
 # pylint: disable=import-outside-toplevel
 # Import rich lazily inside the command for faster --help execution
 
-app = typer.Typer(help="🧘 Deep-work terminal timer for focus sessions.")
+app = typer.Typer(
+    help="🧘 Deep-work terminal timer for focus sessions.",
+    add_completion=False
+)
 
 
 @app.command()
