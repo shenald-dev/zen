@@ -4,7 +4,10 @@ import typer
 # pylint: disable=import-outside-toplevel
 # Import rich lazily inside the command for faster --help execution
 
-app = typer.Typer(help="🧘 Deep-work terminal timer for focus sessions.")
+app = typer.Typer(
+    help="🧘 Deep-work terminal timer for focus sessions.",
+    add_completion=False,
+)
 
 
 @app.command()
@@ -74,9 +77,8 @@ def focus(
                     break
 
                 # Drift-compensated sleep to maintain exact 1Hz refresh rate
-                if remaining > 0:
-                    sleep_interval = 1.0 - (elapsed % 1.0)
-                    time.sleep(min(sleep_interval, remaining))
+                sleep_interval = 1.0 - (elapsed % 1.0)
+                time.sleep(min(sleep_interval, remaining))
 
         console.print("\n")
         completion = Panel.fit(
