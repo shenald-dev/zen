@@ -27,7 +27,6 @@ def focus(
             Progress, BarColumn, TextColumn, TimeRemainingColumn
         )
         from rich.panel import Panel
-        from rich.align import Align
 
         console = Console()
         console.clear()
@@ -38,7 +37,7 @@ def focus(
             border_style="cyan",
             padding=(1, 4)
         )
-        console.print(Align.center(title))
+        console.print(title, justify="center")
         console.print("\n")
 
         with Progress(
@@ -83,18 +82,17 @@ def focus(
             "[bold green]✨ Focus session complete. Take a break.[/bold green]",
             border_style="green"
         )
-        console.print(Align.center(completion))
+        console.print(completion, justify="center")
     except KeyboardInterrupt as exc:
         if console:
             console.print("\n")
             from rich.panel import Panel
-            from rich.align import Align
             interrupted = Panel.fit(
                 "[bold yellow]⏸️  Session paused. "
                 "Your focus still matters.[/bold yellow]",
                 border_style="yellow"
             )
-            console.print(Align.center(interrupted))
+            console.print(interrupted, justify="center")
         else:
             print("\n⏸️  Session paused. Your focus still matters.")
         raise typer.Exit(code=130) from exc
