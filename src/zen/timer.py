@@ -56,8 +56,7 @@ def focus(
             last_second = -1
 
             while True:
-                current_time = time.monotonic()
-                elapsed = current_time - start_time
+                elapsed = time.monotonic() - start_time
                 remaining = seconds - elapsed
 
                 # Only refresh UI when a full second has passed or session ends
@@ -69,8 +68,7 @@ def focus(
                     last_second = current_second
 
                     # Recalculate elapsed to subtract UI rendering overhead
-                    current_time = time.monotonic()
-                    elapsed = current_time - start_time
+                    elapsed = time.monotonic() - start_time
                     remaining = seconds - elapsed
 
                 if remaining <= 0:

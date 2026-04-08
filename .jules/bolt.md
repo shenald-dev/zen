@@ -90,9 +90,19 @@ When manually syncing terminal UI updates (e.g., `progress.update(..., refresh=T
 Action:
 Always recalculate elapsed time (`time.monotonic()`) immediately *after* the synchronous UI render and right *before* calculating and invoking the sleep interval to natively absorb execution overhead.
 
+<<<<<<< HEAD
+## 2026-04-06 — Typer Shell Completion Overhead
+
+Learning:
+By default, `typer.Typer()` initializes shell completion logic (`click.shell_completion`, `shellingham`, etc.) which introduces a minor but measurable overhead (~40-50ms) to CLI startup and pollutes the `--help` menu with `--install-completion` and `--show-completion` flags.
+
+Action:
+For simple, single-command utilities where shell completion is unlikely to be used or needed, instantiate the app with `typer.Typer(add_completion=False)` to squeeze out extra startup performance and simplify the help menu.
+=======
 ## 2026-04-05 — Typer App Completion Overhead
 Learning:
 When instantiating `typer.Typer()`, it defaults to generating shell completion configurations, which introduces a small but measurable startup latency (as it parses `click` logic to expose completion flags) and clutters the `--help` menu with `--install-completion` / `--show-completion` arguments.
 
 Action:
 For simple, single-command CLI tools where shell completion is unnecessary or overkill, explicitly pass `add_completion=False` to the `typer.Typer()` constructor. This provides a cleaner `--help` UI and a slightly faster initial execution.
+>>>>>>> 50e4671 (perf(timer): eliminate redundant logic and disable completion overhead)
