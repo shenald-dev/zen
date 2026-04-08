@@ -7,8 +7,22 @@ authors = [
 ]
 requires-python = ">=3.10"
 dependencies = [
+<<<<<<< HEAD
     "rich>=13.9.0",
     "typer>=0.12.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-mock>=3.14.0",
+    "pytest-cov>=5.0.0",
+    "flake8>=7.0.0",
+    "pylint>=3.0.0"
+=======
+    "rich>=14.3.3",
+    "typer>=0.24.1"
+>>>>>>> b9e9416 (chore(release): push release v0.1.7 tag)
 ]
 
 [project.scripts]

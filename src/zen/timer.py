@@ -4,7 +4,14 @@ import typer
 # pylint: disable=import-outside-toplevel
 # Import rich lazily inside the command for faster --help execution
 
+<<<<<<< HEAD
+app = typer.Typer(
+    help="🧘 Deep-work terminal timer for focus sessions.",
+    add_completion=False,
+)
+=======
 app = typer.Typer(help="🧘 Deep-work terminal timer for focus sessions.")
+>>>>>>> b9e9416 (chore(release): push release v0.1.7 tag)
 
 
 @app.command()
@@ -53,8 +60,12 @@ def focus(
             last_second = -1
 
             while True:
+<<<<<<< HEAD
+                elapsed = time.monotonic() - start_time
+=======
                 current_time = time.monotonic()
                 elapsed = current_time - start_time
+>>>>>>> b9e9416 (chore(release): push release v0.1.7 tag)
                 remaining = seconds - elapsed
 
                 # Only refresh UI when a full second has passed or session ends
@@ -65,18 +76,29 @@ def focus(
                     )
                     last_second = current_second
 
+<<<<<<< HEAD
                     # Recalculate elapsed to subtract UI rendering overhead
-                    current_time = time.monotonic()
-                    elapsed = current_time - start_time
+                    elapsed = time.monotonic() - start_time
                     remaining = seconds - elapsed
 
+=======
+>>>>>>> b9e9416 (chore(release): push release v0.1.7 tag)
                 if remaining <= 0:
                     break
 
                 # Drift-compensated sleep to maintain exact 1Hz refresh rate
+<<<<<<< HEAD
+                sleep_interval = 1.0 - (elapsed % 1.0)
+                time.sleep(min(sleep_interval, remaining))
+=======
+                # Recalculate elapsed to subtract UI rendering overhead
+                current_time = time.monotonic()
+                elapsed = current_time - start_time
+                remaining = seconds - elapsed
                 if remaining > 0:
                     sleep_interval = 1.0 - (elapsed % 1.0)
                     time.sleep(min(sleep_interval, remaining))
+>>>>>>> b9e9416 (chore(release): push release v0.1.7 tag)
 
         console.print("\n")
         completion = Panel.fit(

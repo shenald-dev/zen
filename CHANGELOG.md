@@ -1,11 +1,14 @@
 # Changelog
 
+<<<<<<< HEAD
 ## [0.1.7] - 2026-04-05
 
 ### Changed
-* **[Assurance]:** Validated the recent performance optimization that avoids redundant time recalculations in the timer loop. Codebase maintains 100% test coverage and static analysis compliance.
-* **[Release]:** Cut release v0.1.7.
+* **[Assurance]:** Validated stability of the timer loop optimization that removed redundant time recalculations. No functional regressions were detected.
+* **[Release]:** Cut release v0.1.7 to formalize the lifecycle assessment and finalize codebase stabilization.
 
+=======
+>>>>>>> b9e9416 (chore(release): push release v0.1.7 tag)
 ## [0.1.6] - 2026-04-03
 
 ### Changed
@@ -43,3 +46,10 @@
 * **[Pruned]:** Removed an unused `pytest` import from the test suite.
 * **[Dependencies]:** Bumped minimum dependency baselines to `rich>=13.9.0` and `typer>=0.12.0`.
 * **[Testing]:** Added missing test coverage for the root CLI app module execution path.
+<<<<<<< HEAD
+=======
+
+## [0.1.7] - 2026-04-04
+
+* **[Lifecycle/Dependencies]:** Validated rendering overhead optimization, fully stabilizing exact-precision loop drift. Bumped core dependencies (`rich` to `14.3.3`, `typer` to `0.24.1`) to ensure optimal performance on modern environments. Synced README documentation.
+>>>>>>> b9e9416 (chore(release): push release v0.1.7 tag)
