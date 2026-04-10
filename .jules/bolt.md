@@ -97,3 +97,19 @@ By default, `typer.Typer()` initializes shell completion logic (`click.shell_com
 
 Action:
 For simple, single-command utilities where shell completion is unlikely to be used or needed, instantiate the app with `typer.Typer(add_completion=False)` to squeeze out extra startup performance and simplify the help menu.
+
+## 2024-05-24 — Dynamic Width for Rich Progress Bars
+
+Learning:
+Setting a hardcoded width for `rich.progress.BarColumn` (e.g., `bar_width=60`) can cause the progress bar to wrap awkwardly on narrow terminal windows.
+
+Action:
+Always use `bar_width=None` for `BarColumn` to let `rich` dynamically calculate and use the available terminal width without wrapping.
+
+## 2024-05-24 — Audible Notifications for CLI Timers
+
+Learning:
+When a long-running timer finishes in the background, users might not notice because there's no visual or audible alert outside the terminal window.
+
+Action:
+Use `console.bell()` in `rich.console.Console` at the end of long-running operations (like focus sessions) to provide a standard terminal bell notification to the user.
