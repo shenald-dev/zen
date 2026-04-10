@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.8] - 2026-04-07
+
+### Changed
+* **[UX/UI]:** Changed `BarColumn` width to dynamic (`bar_width=None`) to support responsive terminal sizing and prevent visual wrapping in narrow viewports.
+* **[UX/UI]:** Added an audible/visual terminal notification (`console.bell()`) upon completion of a focus session to better alert users.
+
 ## [0.1.7] - 2026-04-05
 
 ### Changed

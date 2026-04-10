@@ -39,10 +39,12 @@ def test_focus_valid_minutes(mocker):
 
     mock_monotonic.calls = 0
     mocker.patch("time.monotonic", side_effect=mock_monotonic)
+    mock_bell = mocker.patch("rich.console.Console.bell")
     result = runner.invoke(app, ["1"])
     assert result.exit_code == 0
     assert "Zen Mode Activated" in result.output
     assert "Focus session complete" in result.output
+    mock_bell.assert_called_once()
 
 
 def test_focus_keyboard_interrupt(mocker):
