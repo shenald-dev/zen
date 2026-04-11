@@ -42,7 +42,7 @@ def focus(
 
         with Progress(
             TextColumn("[progress.description]{task.description}"),
-            BarColumn(bar_width=60, style="magenta", complete_style="cyan"),
+            BarColumn(bar_width=None, style="magenta", complete_style="cyan"),
             TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
             TimeRemainingColumn(),
             console=console,
@@ -78,6 +78,7 @@ def focus(
                 time.sleep(min(sleep_interval, remaining))
 
         console.print("\n")
+        console.bell()
         completion = Panel.fit(
             "[bold green]✨ Focus session complete. Take a break.[/bold green]",
             border_style="green"
