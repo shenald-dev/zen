@@ -42,7 +42,7 @@ def focus(
 
         with Progress(
             TextColumn("[progress.description]{task.description}"),
-            BarColumn(bar_width=60, style="magenta", complete_style="cyan"),
+            BarColumn(bar_width=None, style="magenta", complete_style="cyan"),
             TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
             TimeRemainingColumn(),
             console=console,
@@ -83,6 +83,7 @@ def focus(
             border_style="green"
         )
         console.print(completion, justify="center")
+        console.bell()
     except KeyboardInterrupt as exc:
         if console:
             console.print("\n")
