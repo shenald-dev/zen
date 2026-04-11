@@ -10,14 +10,33 @@ app = typer.Typer(
 )
 
 
+def version_callback(value: bool):
+    """Callback to display the version and exit."""
+    if value:
+        import importlib.metadata
+        try:
+            version = importlib.metadata.version("zen-timer")
+        except importlib.metadata.PackageNotFoundError:  # pragma: no cover
+            version = "unknown"
+        print(f"zen-timer {version}")
+        raise typer.Exit()
+
+
 @app.command()
 def focus(
     minutes: int = typer.Argument(
         25, min=1, max=1440, help="Minutes to focus for"
-    )
+    ),
+    version: bool = typer.Option(
+        None,
+        "--version",
+        callback=version_callback,
+        is_eager=True,
+        help="Show the version and exit.",
+    ),
 ):
     """Start a deep-work focus session."""
-    # pylint: disable=too-many-locals
+    # pylint: disable=too-many-locals, unused-argument
     seconds = minutes * 60
     console = None
 
@@ -30,9 +49,10 @@ def focus(
 
         console = Console()
         console.clear()
+        unit = "Minute" if minutes == 1 else "Minutes"
         title = Panel.fit(
             f"[bold cyan]🧘 Zen Mode Activated: {minutes} "
-            "Minutes of Deep Work[/bold cyan]\n"
+            f"{unit} of Deep Work[/bold cyan]\n"
             "[gray]Do not disturb. No GUI, just flow.[/gray]",
             border_style="cyan",
             padding=(1, 4)

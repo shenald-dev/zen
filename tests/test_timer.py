@@ -76,3 +76,10 @@ def test_main(mocker):
     from zen.timer import main
     main()
     mock_app.assert_called_once()
+
+
+def test_version_option():
+    """Test that --version option prints version and exits."""
+    result = runner.invoke(app, ["--version"])
+    assert result.exit_code == 0
+    assert "zen-timer" in result.output
