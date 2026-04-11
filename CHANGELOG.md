@@ -43,3 +43,10 @@
 * **[Pruned]:** Removed an unused `pytest` import from the test suite.
 * **[Dependencies]:** Bumped minimum dependency baselines to `rich>=13.9.0` and `typer>=0.12.0`.
 * **[Testing]:** Added missing test coverage for the root CLI app module execution path.
+
+## [0.1.8] - 2026-04-11
+
+### Changed
+* **[Assurance]:** Validated stability of the recent changes.
+* **[UI]:** Allow the progress bar to dynamically resize by setting `bar_width=None`. Add a visual/audible terminal bell via `console.bell()` upon session completion.
+* **[Release]:** Cut release v0.1.8.
