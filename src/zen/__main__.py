@@ -1,0 +1,5 @@
+"""Main module execution entrypoint."""
+from zen.timer import main
+
+if __name__ == "__main__":
+    main()

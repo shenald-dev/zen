@@ -76,3 +76,16 @@ def test_main(mocker):
     from zen.timer import main
     main()
     mock_app.assert_called_once()
+
+
+def test_version_flag():
+    """Test that the --version flag outputs the correct version."""
+    # pylint: disable=import-outside-toplevel
+    import importlib.metadata
+    result = runner.invoke(app, ["--version"])
+    assert result.exit_code == 0
+    try:
+        version = importlib.metadata.version("zen-timer")
+    except importlib.metadata.PackageNotFoundError:
+        version = "unknown"
+    assert f"zen-timer version {version}" in result.output

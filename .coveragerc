@@ -1,0 +1,3 @@
+[run]
+omit =
+    src/zen/__main__.py
