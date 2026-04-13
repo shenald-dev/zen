@@ -97,3 +97,9 @@ By default, `typer.Typer()` initializes shell completion logic (`click.shell_com
 
 Action:
 For simple, single-command utilities where shell completion is unlikely to be used or needed, instantiate the app with `typer.Typer(add_completion=False)` to squeeze out extra startup performance and simplify the help menu.
+
+## 2026-04-12 — Handling temporary agent files
+Learning:
+When testing code during a run, creating temporary root-level files (e.g. `version_test.py`) litters the repository and fails pre-commit code review checks, as they appear as unnecessary edits that degrade codebase cleanliness.
+Action:
+Do not leave temporary agent artifacts or scratchpad scripts in the repository. Ensure they are explicitly deleted (e.g., `rm test.py`) before requesting a code review or finalizing commits.
