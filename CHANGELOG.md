@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.9] - 2026-04-13
+
+### Changed
+* **[Assurance]:** Validated stability of the recent UI additions (dynamic progress bar resizing with `bar_width=None` and audible/visual terminal notification with `console.bell()`). No functional regressions were detected.
+* **[Release]:** Cut release v0.1.9 to formalize the lifecycle assessment and finalize codebase stabilization.
+
 ## [0.1.7] - 2026-04-05
 
 ### Changed
