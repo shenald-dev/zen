@@ -4,6 +4,17 @@ import typer
 # pylint: disable=import-outside-toplevel
 # Import rich lazily inside the command for faster --help execution
 
+def version_callback(value: bool):
+    """Callback to print the version and exit."""
+    if value:
+        import importlib.metadata
+        try:
+            version = importlib.metadata.version("zen-timer")
+        except importlib.metadata.PackageNotFoundError:  # pragma: no cover
+            version = "unknown"
+        typer.echo(f"zen-timer version {version}")
+        raise typer.Exit()
+
 app = typer.Typer(
     help="🧘 Deep-work terminal timer for focus sessions.",
     add_completion=False,
@@ -14,7 +25,14 @@ app = typer.Typer(
 def focus(
     minutes: int = typer.Argument(
         25, min=1, max=1440, help="Minutes to focus for"
-    )
+    ),
+    version: bool = typer.Option(  # pylint: disable=unused-argument
+        None,
+        "--version",
+        callback=version_callback,
+        is_eager=True,
+        help="Show the version and exit.",
+    ),
 ):
     """Start a deep-work focus session."""
     # pylint: disable=too-many-locals

@@ -76,3 +76,21 @@ def test_main(mocker):
     from zen.timer import main
     main()
     mock_app.assert_called_once()
+
+def test_version():
+    """Test the --version flag."""
+    result = runner.invoke(app, ["--version"])
+    assert result.exit_code == 0
+    assert "zen-timer version" in result.output
+
+def test_version_unknown(mocker):
+    """Test the --version flag when the package is not installed."""
+    # pylint: disable=import-outside-toplevel
+    import importlib.metadata
+    mocker.patch(
+        "importlib.metadata.version",
+        side_effect=importlib.metadata.PackageNotFoundError
+    )
+    result = runner.invoke(app, ["--version"])
+    assert result.exit_code == 0
+    assert "zen-timer version unknown" in result.output

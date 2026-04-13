@@ -97,3 +97,10 @@ By default, `typer.Typer()` initializes shell completion logic (`click.shell_com
 
 Action:
 For simple, single-command utilities where shell completion is unlikely to be used or needed, instantiate the app with `typer.Typer(add_completion=False)` to squeeze out extra startup performance and simplify the help menu.
+
+## 2024-04-13 — Safe CLI Version Flags
+Learning:
+When adding a `--version` flag to a Typer application via a callback, the `importlib.metadata` import should be placed inside the callback to maintain lightning-fast CLI startup times (lazy loading), and the fallback for `PackageNotFoundError` should be excluded from coverage via `# pragma: no cover`.
+
+Action:
+Ensure all CLI entry points prioritize lazy imports for dependencies that aren't strictly required to display the help menu or start the application.
