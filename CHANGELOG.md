@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.9] - 2026-04-13
+
+### Changed
+* **[Assurance]:** Validated structural integrity of recent module execution and version flag additions. Tests passing, no regressions found.
+* **[Docs]:** Synced README to document `python -m zen` execution and `--version` flag.
+* **[Release]:** Cut release v0.1.9.
+
 ## [0.1.7] - 2026-04-05
 
 ### Changed

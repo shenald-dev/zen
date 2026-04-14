@@ -55,3 +55,10 @@ Added a terminal bell `console.bell()` upon focus completion to notify the user.
 
 Alignment / Deferred:
 No dependencies bumped. Docs and version updated to v0.1.8.
+
+2026-04-13 — Assessment & Lifecycle
+Observation / Pruned:
+Validated structural integrity of recent module execution and version flag additions. Tests passing, no regressions found.
+
+Alignment / Deferred:
+Synced README to document `python -m zen` execution and `--version` flag. Cut patch release v0.1.9.
