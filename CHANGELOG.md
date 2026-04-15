@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.9] - 2026-04-14
+
+### Changed
+* **[Assurance]:** Validated the previous agent's changes adding a `--version` flag and module execution capabilities (`python -m zen`). Codebase remains clean, tested, and highly legible.
+* **[Release]:** Cut release v0.1.9.
+
 ## [0.1.7] - 2026-04-05
 
 ### Changed

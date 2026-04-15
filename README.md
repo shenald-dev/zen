@@ -14,6 +14,12 @@ pip install zen-timer
 zen 25
 ```
 
+Alternatively, you can run it as a module or check the version:
+```bash
+python -m zen 25
+zen --version
+```
+
 ## 🤝 Contributing
 Want to help safeguard developer focus? Let's flow together! 🌊
 - 🐛 **Found a bug?** Open an issue to let us know.
