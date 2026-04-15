@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.9] - 2026-04-12
+
+### Changed
+* **[Assurance]:** Validated codebase structural integrity. Excluded `__main__.py` and `__init__.py` from test coverage reports and ignored `.pytest_cache/` to prevent version control pollution.
+* **[Release]:** Cut release v0.1.9.
+
 ## [0.1.7] - 2026-04-05
 
 ### Changed
