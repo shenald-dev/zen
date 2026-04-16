@@ -88,6 +88,13 @@ def test_focus_early_keyboard_interrupt(mocker):
     assert "Session paused. Your focus still matters." in result.output
 
 
+def test_version_flag():
+    """Test that the --version flag outputs the version and exits."""
+    result = runner.invoke(app, ["--version"])
+    assert result.exit_code == 0
+    assert "zen-timer version" in result.output
+
+
 def test_main(mocker):
     """Test that main() calls the Typer app."""
     mock_app = mocker.patch("zen.timer.app")

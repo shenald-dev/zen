@@ -48,9 +48,10 @@ Assessed the recent performance optimization which avoided redundant time recalc
 Alignment / Deferred:
 No dependency upgrades were applied as current baselines are fully adequate and safe. Documentation (CHANGELOG) synced to capture assurance validation. Cut patch release v0.1.7.
 
-2026-04-07 — Assessment & Lifecycle
+
+2026-04-18 — Assessment & Lifecycle
 Observation / Pruned:
-Assessed terminal rendering behavior and noted that rigid UI elements (`bar_width=60`) caused visual artifacting on narrow viewports, while the lack of auditory notification on completion forced users to actively poll the terminal. These rigidities were pruned by dynamically sizing the component (`bar_width=None`) and adding `console.bell()`.
+Assessed terminal rendering behavior and noted that rigid UI elements (`bar_width=60`) caused visual artifacting on narrow viewports, while the lack of auditory notification on completion forced users to actively poll the terminal. These rigidities were pruned by dynamically sizing the component (`bar_width=None`) and adding `console.bell()`. Added a `--no-bell` flag to allow disabling the notification.
 
 Alignment / Deferred:
-Changes seamlessly aligned with the TUI framework (`rich`). Tests were updated using `pytest-mock` to guarantee the notification triggers successfully. No external library dependencies needed to be bumped. Documentation (CHANGELOG) synced. Cut release v0.1.8.
+Changes seamlessly aligned with the TUI framework (`rich`). Tests were updated using `pytest-mock` to guarantee the notification triggers successfully and respects the flag. No external library dependencies needed to be bumped. Documentation (CHANGELOG) synced. Cut release v0.1.10.
