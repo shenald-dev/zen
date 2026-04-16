@@ -1,11 +1,5 @@
 # Changelog
 
-## [0.1.9] - 2026-04-12
-
-### Changed
-* **[Assurance]:** Validated stability of the recent `--version` flag implementation and module execution path (`__main__.py`). Adversarial QA confirmed the new version callback does not interfere with the core timer execution path and properly exits.
-* **[Release]:** Cut release v0.1.9.
-
 ## [0.1.7] - 2026-04-05
 
 ### Changed

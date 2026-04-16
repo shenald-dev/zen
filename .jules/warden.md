@@ -55,10 +55,3 @@ Added a terminal bell `console.bell()` upon focus completion to notify the user.
 
 Alignment / Deferred:
 No dependencies bumped. Docs and version updated to v0.1.8.
-
-2026-04-12 — Assessment & Lifecycle
-Observation / Pruned:
-Validated the recent introduction of the `--version` flag and package execution module (`__main__.py`). The implementation is isolated, tested, and doesn't affect the core TUI timer performance. The codebase entropy is stable. No dead code found to prune.
-
-Alignment / Deferred:
-No dependencies required bumping. Updated CHANGELOG to document the assurance step and cut patch release v0.1.9.
