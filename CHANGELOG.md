@@ -1,10 +1,18 @@
 # Changelog
 
-## [0.1.9] - 2026-04-13
+## [0.1.10] - 2026-04-13
 
 ### Changed
 * **[Assurance]:** Validated stability of the recent UI additions (dynamic progress bar resizing with `bar_width=None` and audible/visual terminal notification with `console.bell()`). No functional regressions were detected.
-* **[Release]:** Cut release v0.1.9 to formalize the lifecycle assessment and finalize codebase stabilization.
+* **[Release]:** Cut release v0.1.10 to formalize the lifecycle assessment and finalize codebase stabilization.
+
+## [0.1.9] - 2026-04-15
+
+### Changed
+* **[Maintainability]:** Removed redundant module docstring in `timer.py`.
+* **[Maintainability]:** Excluded `.pytest_cache/` in `.gitignore`.
+* **[Maintainability]:** Explicitly omitted execution files from test coverage tracking.
+
 
 ## [0.1.7] - 2026-04-05
 
