@@ -1,3 +1,5 @@
+# Exclude root package entrypoints since they lack complex logic
+# and are invoked via standard python module patterns.
 [run]
 omit =
     src/zen/__main__.py
