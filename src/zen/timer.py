@@ -14,6 +14,9 @@ app = typer.Typer(
 def focus(
     minutes: int = typer.Argument(
         25, min=1, max=1440, help="Minutes to focus for"
+    ),
+    silent: bool = typer.Option(
+        False, "--silent", help="Disable the terminal bell notification"
     )
 ):
     """Start a deep-work focus session."""
@@ -83,7 +86,8 @@ def focus(
             border_style="green"
         )
         console.print(completion, justify="center")
-        console.bell()
+        if not silent:
+            console.bell()
     except KeyboardInterrupt as exc:
         if console:
             console.print("\n")
