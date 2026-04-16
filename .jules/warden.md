@@ -47,3 +47,11 @@ Assessed the recent performance optimization which avoided redundant time recalc
 
 Alignment / Deferred:
 No dependency upgrades were applied as current baselines are fully adequate and safe. Documentation (CHANGELOG) synced to capture assurance validation. Cut patch release v0.1.7.
+
+2026-04-11 — Assessment & Lifecycle
+Observation / Pruned:
+Replaced hardcoded `bar_width=60` in the Rich progress bar with `bar_width=None` to allow responsive dynamic resizing on narrow screens.
+Added a terminal bell `console.bell()` upon focus completion to notify the user.
+
+Alignment / Deferred:
+No dependencies bumped. Docs and version updated to v0.1.8.

@@ -113,3 +113,8 @@ When a long-running timer finishes in the background, users might not notice bec
 
 Action:
 Use `console.bell()` in `rich.console.Console` at the end of long-running operations (like focus sessions) to provide a standard terminal bell notification to the user.
+## 2026-04-12 — Handling temporary agent files
+Learning:
+When testing code during a run, creating temporary root-level files (e.g. `version_test.py`) litters the repository and fails pre-commit code review checks, as they appear as unnecessary edits that degrade codebase cleanliness.
+Action:
+Do not leave temporary agent artifacts or scratchpad scripts in the repository. Ensure they are explicitly deleted (e.g., `rm test.py`) before requesting a code review or finalizing commits.

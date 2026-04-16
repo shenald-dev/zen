@@ -1,4 +1,4 @@
-"""🧘 Zen Timer. Simple terminal app for focus sessions."""
+"""Zen - Deep-work terminal timer."""
 import time
 import typer
 # pylint: disable=import-outside-toplevel
@@ -10,6 +10,18 @@ app = typer.Typer(
 )
 
 
+def version_callback(value: bool):
+    """Callback for the --version option."""
+    if value:
+        import importlib.metadata  # pylint: disable=import-outside-toplevel
+        try:
+            version = importlib.metadata.version("zen-timer")
+        except importlib.metadata.PackageNotFoundError:  # pragma: no cover
+            version = "unknown"
+        print(f"zen-timer version {version}")
+        raise typer.Exit()
+
+
 @app.command()
 def focus(
     minutes: int = typer.Argument(
@@ -17,6 +29,13 @@ def focus(
     ),
     silent: bool = typer.Option(
         False, "--silent", help="Disable the terminal bell notification"
+    ),
+    version: bool = typer.Option(  # pylint: disable=unused-argument
+        None,
+        "--version",
+        callback=version_callback,
+        is_eager=True,
+        help="Show the application version and exit."
     )
 ):
     """Start a deep-work focus session."""
@@ -42,7 +61,6 @@ def focus(
         )
         console.print(title, justify="center")
         console.print("\n")
-
         with Progress(
             TextColumn("[progress.description]{task.description}"),
             BarColumn(bar_width=None, style="magenta", complete_style="cyan"),
@@ -91,7 +109,6 @@ def focus(
     except KeyboardInterrupt as exc:
         if console:
             console.print("\n")
-            from rich.panel import Panel
             interrupted = Panel.fit(
                 "[bold yellow]⏸️  Session paused. "
                 "Your focus still matters.[/bold yellow]",
