@@ -1,11 +1,12 @@
 # Changelog
 
-## [0.1.9] - 2026-04-14
+## [0.1.9] - 2026-04-15
 
 ### Changed
 * **[Assurance]:** Validated repository stability and identified structural QA improvements.
+* **[Maintainability]:** Removed redundant module docstring in `timer.py`.
+* **[Maintainability]:** Excluded `.pytest_cache/` in `.gitignore` to prevent test artifacts from polluting source control.
 * **[Maintainability]:** Added explicit `.coveragerc` rules to exclude CLI entrypoint modules from test coverage reports, improving output clarity.
-* **[Maintainability]:** Added missing `.pytest_cache/` entry to `.gitignore` to prevent test artifacts from polluting source control.
 * **[Release]:** Cut release v0.1.9 to conclude the lifecycle assessment.
 
 ## [0.1.7] - 2026-04-05
