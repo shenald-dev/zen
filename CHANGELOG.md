@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.9] - 2026-04-15
+
+### Changed
+* **[Maintainability]:** Removed redundant module docstring in `timer.py`.
+* **[Maintainability]:** Excluded `.pytest_cache/` in `.gitignore`.
+* **[Maintainability]:** Explicitly omitted execution files from test coverage tracking.
+
 ## [0.1.7] - 2026-04-05
 
 ### Changed

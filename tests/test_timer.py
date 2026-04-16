@@ -1,5 +1,6 @@
 """Tests for zen-timer."""
 from typer.testing import CliRunner
+
 from zen.timer import app
 
 runner = CliRunner()

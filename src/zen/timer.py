@@ -1,5 +1,4 @@
-"""🧘 Zen Timer. Simple terminal app for focus sessions."""
-import importlib.metadata
+"""Zen - Deep-work terminal timer."""
 import time
 import typer
 # pylint: disable=import-outside-toplevel
@@ -12,8 +11,9 @@ app = typer.Typer(
 
 
 def version_callback(value: bool):
-    """Callback to print the application version."""
+    """Callback for the --version option."""
     if value:
+        import importlib.metadata  # pylint: disable=import-outside-toplevel
         try:
             version = importlib.metadata.version("zen-timer")
         except importlib.metadata.PackageNotFoundError:  # pragma: no cover
@@ -28,7 +28,10 @@ def focus(
         25, min=1, max=1440, help="Minutes to focus for"
     ),
     version: bool = typer.Option(  # pylint: disable=unused-argument
-        None, "--version", callback=version_callback, is_eager=True,
+        None,
+        "--version",
+        callback=version_callback,
+        is_eager=True,
         help="Show the application version and exit."
     )
 ):
