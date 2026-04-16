@@ -1,11 +1,14 @@
 # Changelog
 
-## [0.1.9] - 2026-04-13
+## [0.1.9] - 2026-04-15
 
 ### Changed
 * **[Assurance]:** Validated structural integrity of recent module execution and version flag additions. Tests passing, no regressions found.
 * **[Docs]:** Synced README to document `python -m zen` execution and `--version` flag.
 * **[Release]:** Cut release v0.1.9.
+* **[Maintainability]:** Removed redundant module docstring in `timer.py`.
+* **[Maintainability]:** Excluded `.pytest_cache/` in `.gitignore`.
+* **[Maintainability]:** Explicitly omitted execution files from test coverage tracking.
 
 ## [0.1.7] - 2026-04-05
 

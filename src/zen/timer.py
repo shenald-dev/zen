@@ -1,4 +1,4 @@
-"""🧘 Zen Timer. Simple terminal app for focus sessions."""
+"""Zen - Deep-work terminal timer."""
 import time
 import typer
 # pylint: disable=import-outside-toplevel
