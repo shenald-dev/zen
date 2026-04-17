@@ -103,3 +103,11 @@ Learning:
 When testing code during a run, creating temporary root-level files (e.g. `version_test.py`) litters the repository and fails pre-commit code review checks, as they appear as unnecessary edits that degrade codebase cleanliness.
 Action:
 Do not leave temporary agent artifacts or scratchpad scripts in the repository. Ensure they are explicitly deleted (e.g., `rm test.py`) before requesting a code review or finalizing commits.
+
+## 2026-04-20 — Typer Rich Markup Import Overhead
+
+Learning:
+By default, Typer attempts to import the `rich` library at module load time if it is available, in order to render help text with rich markup. This eager import blocks startup and can add up to ~100-200ms overhead, which is particularly noticeable for fast commands like `--help` or `--version`.
+
+Action:
+For simple CLI tools where rich help text formatting is not strictly required, pass `rich_markup_mode=None` to the `typer.Typer()` initialization to prevent Typer from eagerly loading `rich` on startup, yielding a measurable performance boost.
