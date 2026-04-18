@@ -7,6 +7,7 @@ import typer
 app = typer.Typer(
     help="🧘 Deep-work terminal timer for focus sessions.",
     add_completion=False,
+    rich_markup_mode=None,
 )
 
 
