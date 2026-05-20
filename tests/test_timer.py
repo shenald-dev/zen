@@ -76,6 +76,18 @@ def test_version_flag():
     assert "zen-timer version" in result.output
 
 
+def test_version_not_found(mocker):
+    """Test fallback when the package version cannot be found."""
+    import importlib.metadata
+    mocker.patch(
+        "importlib.metadata.version",
+        side_effect=importlib.metadata.PackageNotFoundError
+    )
+    result = runner.invoke(app, ["--version"])
+    assert result.exit_code == 0
+    assert "zen-timer version unknown" in result.output
+
+
 def test_main(mocker):
     """Test that main() calls the Typer app."""
     mock_app = mocker.patch("zen.timer.app")
