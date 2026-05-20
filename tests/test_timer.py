@@ -34,10 +34,10 @@ def test_focus_valid_minutes(mocker):
     # We use a generator or function so it doesn't run out of side effects
     # if rich calls it more
     def mock_monotonic():
-        mock_monotonic.calls += 1
-        return 0.0 if mock_monotonic.calls == 1 else 60.1
+        mock_monotonic.current += 10.0
+        return mock_monotonic.current
 
-    mock_monotonic.calls = 0
+    mock_monotonic.current = 0.0
     mocker.patch("time.monotonic", side_effect=mock_monotonic)
     result = runner.invoke(app, ["1"])
     assert result.exit_code == 0
