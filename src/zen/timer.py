@@ -17,7 +17,7 @@ def version_callback(value: bool):
         import importlib.metadata  # pylint: disable=import-outside-toplevel
         try:
             version = importlib.metadata.version("zen-timer")
-        except importlib.metadata.PackageNotFoundError:  # pragma: no cover
+        except importlib.metadata.PackageNotFoundError:
             version = "unknown"
         print(f"zen-timer version {version}")
         raise typer.Exit()
