@@ -95,7 +95,7 @@ def focus(
 
                 # Drift-compensated sleep to maintain exact 1Hz refresh rate
                 sleep_interval = 1.0 - (elapsed % 1.0)
-                time.sleep(min(sleep_interval, remaining))
+                time.sleep(max(0, min(sleep_interval, remaining)))
 
         console.print("\n")
         console.bell()
