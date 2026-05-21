@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.11] - 2026-05-20
+
+### Changed
+* **[Assurance]:** Validated test suite fix for infinite loops caused by time.monotonic mocks and rich background threads. Ensured robust stateful mocking pattern is used.
+* **[Maintenance]:** Fixed out-of-order changelog entries.
+* **[Release]:** Cut release v0.1.11 to finalize codebase stabilization.
+
 ## [0.1.10] - 2026-04-16
 
 ### Changed
@@ -13,6 +20,13 @@
 * **[Maintainability]:** Removed redundant module docstring in `timer.py`.
 * **[Maintainability]:** Excluded `.pytest_cache/` in `.gitignore`.
 * **[Maintainability]:** Explicitly omitted execution files from test coverage tracking.
+
+## [0.1.8] - 2026-04-11
+
+### Changed
+* **[Assurance]:** Validated stability of the recent changes.
+* **[UI]:** Allow the progress bar to dynamically resize by setting `bar_width=None`. Add a visual/audible terminal bell via `console.bell()` upon session completion.
+* **[Release]:** Cut release v0.1.8.
 
 ## [0.1.7] - 2026-04-05
 
@@ -57,10 +71,3 @@
 * **[Pruned]:** Removed an unused `pytest` import from the test suite.
 * **[Dependencies]:** Bumped minimum dependency baselines to `rich>=13.9.0` and `typer>=0.12.0`.
 * **[Testing]:** Added missing test coverage for the root CLI app module execution path.
-
-## [0.1.8] - 2026-04-11
-
-### Changed
-* **[Assurance]:** Validated stability of the recent changes.
-* **[UI]:** Allow the progress bar to dynamically resize by setting `bar_width=None`. Add a visual/audible terminal bell via `console.bell()` upon session completion.
-* **[Release]:** Cut release v0.1.8.
