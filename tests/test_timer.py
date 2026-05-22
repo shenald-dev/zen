@@ -88,6 +88,51 @@ def test_version_flag_package_not_found(mocker):
     assert "zen-timer version unknown" in result.output
 
 
+def test_focus_sleep_bounds_check(mocker):
+    """Test that negative sleep intervals are bounded to 0."""
+    mock_sleep = mocker.patch("time.sleep")
+
+    original_min = min
+
+    def mock_min(*args, **kwargs):
+        # We only want to return -0.5 for timer.py calls
+        # timer.py calls: min(sleep_interval, remaining)
+        # sleep_interval is float, remaining is float.
+        if (len(args) == 2 and isinstance(args[0], float) and
+                isinstance(args[1], float)):
+            # If we are in the focus loop
+            if args[1] <= 60.0 and args[1] >= 0.0:
+                return -0.5
+        return original_min(*args, **kwargs)
+
+    mocker.patch("builtins.min", side_effect=mock_min)
+
+    # We need sleep to be called at least once before breaking
+    def mock_monotonic():
+        if mock_monotonic.call_count == 0:
+            mock_monotonic.call_count += 1
+            return 0.0  # Start time
+        if mock_monotonic.call_count == 1:
+            mock_monotonic.call_count += 1
+            return 0.5  # First loop check
+        if mock_monotonic.call_count == 2:
+            mock_monotonic.call_count += 1
+            return 0.6  # Recalculate if UI triggers, or next loop
+        if mock_monotonic.call_count == 3:
+            mock_monotonic.call_count += 1
+            return 60.0  # Breaks loop
+        mock_monotonic.call_count += 1
+        return 65.0
+
+    mock_monotonic.call_count = 0
+    mocker.patch("time.monotonic", side_effect=mock_monotonic)
+
+    result = runner.invoke(app, ["1"])
+
+    assert result.exit_code == 0
+    mock_sleep.assert_any_call(0)
+
+
 def test_main(mocker):
     """Test that main() calls the Typer app."""
     mock_app = mocker.patch("zen.timer.app")

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.13] - 2026-05-22
+
+### Changed
+* **[Assurance]:** Validated codebase structural integrity and implemented an adversarial QA test simulating extreme floating-point drift to guarantee the `max(0, ...)` bounds logic for `time.sleep()` flawlessly prevents exceptions.
+* **[Release]:** Cut release v0.1.13 to formalize the lifecycle assessment and finalize codebase stabilization.
+
 ## [0.1.12] - 2026-05-21
 
 ### Changed
