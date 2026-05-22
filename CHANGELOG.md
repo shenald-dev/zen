@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.12] - 2026-05-21
+
+### Changed
+* **[Reliability]:** Addressed an edge case where floating-point drift could cause the calculated sleep duration to evaluate to a negative number, resulting in a `ValueError`. Guarded `time.sleep()` with a bounds check (`max(0, ...)`).
+* **[Release]:** Cut release v0.1.12 to finalize stability improvements.
+
 ## [0.1.11] - 2026-05-20
 
 ### Changed

@@ -78,7 +78,7 @@ def test_version_flag():
 
 def test_version_flag_package_not_found(mocker):
     """Test that the --version flag outputs unknown if package not found."""
-    import importlib.metadata
+    import importlib.metadata  # pylint: disable=import-outside-toplevel
     mocker.patch(
         "importlib.metadata.version",
         side_effect=importlib.metadata.PackageNotFoundError
