@@ -1,6 +1,6 @@
 [project]
 name = "zen-timer"
-version = "0.1.12"
+version = "0.1.13"
 description = "🧘 Deep-work timer. Simple terminal app for focus sessions. No GUI, just flow."
 authors = [
     { name = "shenald-dev", email = "bot@shenald.dev" }
