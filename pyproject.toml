@@ -30,5 +30,5 @@ build-backend = "setuptools.build_meta"
 [tool.coverage.run]
 omit = [
     "src/zen/__main__.py",
-    "src/zen/__init__.py"
+    "src/zen/__init__.py
 ]
