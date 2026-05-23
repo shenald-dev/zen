@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.14] - 2026-05-23
+
+### Changed
+* **[UI]:** Fixed a bug where the progress bar could hang at an incomplete state upon session completion by explicitly forcing a 100% render refresh before breaking the loop.
+* **[Release]:** Cut release v0.1.14.
+
 ## [0.1.13] - 2026-05-22
 
 ### Changed
