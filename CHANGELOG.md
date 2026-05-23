@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.14] - 2026-05-23
+
+### Changed
+* **[Assurance]:** Reverted the removal of the final `progress.update(...)` call before the loop break. Ensuring the progress bar hits 100% on completion fixes a visual state hanging bug.
+* **[Release]:** Cut release v0.1.14.
+
 ## [0.1.13] - 2026-05-22
 
 ### Changed
