@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.14] - 2026-05-24
+
+### Changed
+* **[Assurance]:** Validated codebase structural integrity, tested edge cases, and confirmed that the drift-compensated UI performance and `ValueError` boundary fixes remain entirely stable. Found no unused exports or dead code to prune.
+* **[Dependencies]:** Bumped minimum dependency baselines to `rich>=13.9.4` and `typer>=0.12.5` to ensure compatibility and leverage latest library patches.
+* **[Release]:** Cut release v0.1.14 to formalize the lifecycle assessment and finalize codebase stabilization.
+
 ## [0.1.13] - 2026-05-22
 
 ### Changed
