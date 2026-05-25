@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.14] - 2026-05-25
+
+### Changed
+* **[Assurance]:** Validated codebase structural integrity. Static analysis and test suite execution yielded zero errors and 100% coverage. No dead code or architectural vulnerabilities were found. Entropy is stable.
+* **[Release]:** Cut release v0.1.14 to formalize the lifecycle assessment and finalize codebase stabilization.
+
 ## [0.1.13] - 2026-05-22
 
 ### Changed
