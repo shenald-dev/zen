@@ -105,7 +105,7 @@ def focus(
         )
         console.print(completion, justify="center")
     except KeyboardInterrupt as exc:
-        if console:
+        if console is not None:
             console.print("\n")
             from rich.panel import Panel
             interrupted = Panel.fit(

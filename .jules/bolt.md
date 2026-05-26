@@ -1,3 +1,11 @@
+## 2026-05-26 — Bounding Dependency Baselines
+
+Learning:
+Open-ended dependencies (e.g., `>=`) in `pyproject.toml` leave CLI tools vulnerable to unexpected build failures and breaking API changes when upstream libraries cut major versions.
+
+Action:
+Always cap top-level dependencies with a major version bound (`<X.0.0`) when stability is prioritized over cutting-edge features.
+
 ﻿2026-03-18 — No graceful Ctrl+C in TUI timer
 Learning: Terminal TUI apps using Rich Progress without KeyboardInterrupt handling leave the terminal in a dirty state on interrupt. This is a common gap in small CLI tools.
 Action: Always verify interrupt handling in terminal UI code. Wrap Progress/interactive blocks in try/except KeyboardInterrupt.
