@@ -1,10 +1,16 @@
 # Changelog
 
-## [0.1.14] - 2026-05-23
+## [0.1.15] - 2026-05-26
 
 ### Changed
 * **[Assurance]:** Reverted the removal of the final `progress.update(...)` call before the loop break. Ensuring the progress bar hits 100% on completion fixes a visual state hanging bug.
-* **[Release]:** Cut release v0.1.14.
+* **[Release]:** Cut release v0.1.15.
+
+## [0.1.14] - 2026-05-26
+
+### Changed
+* **[Reliability]:** Capped all open-ended top-level and development dependencies in `pyproject.toml` with safe upper major version bounds to prevent unexpected build failures from future breaking upstream releases.
+* **[Release]:** Cut release v0.1.14 to formalize the lifecycle assessment and finalize codebase stabilization.
 
 ## [0.1.13] - 2026-05-22
 
