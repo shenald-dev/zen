@@ -91,9 +91,7 @@ def focus(
                     remaining = seconds - elapsed
 
                 if remaining <= 0:
-                    progress.update(
-                        task, completed=seconds, refresh=True
-                    )
+                    progress.update(task, completed=seconds, refresh=True)
                     break
 
                 # Drift-compensated sleep to maintain exact 1Hz refresh rate
