@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.14] - 2026-05-26
+
+### Changed
+* **[Reliability]:** Capped all open-ended top-level and development dependencies in `pyproject.toml` with safe upper major version bounds to prevent unexpected build failures from future breaking upstream releases.
+* **[Release]:** Cut release v0.1.14 to formalize the lifecycle assessment and finalize codebase stabilization.
+
 ## [0.1.13] - 2026-05-22
 
 ### Changed
