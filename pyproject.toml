@@ -1,23 +1,23 @@
 [project]
 name = "zen-timer"
-version = "0.1.14"
+version = "0.1.15"
 description = "🧘 Deep-work timer. Simple terminal app for focus sessions. No GUI, just flow."
 authors = [
     { name = "shenald-dev", email = "bot@shenald.dev" }
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "rich>=13.9.0",
-    "typer>=0.12.0"
+    "rich>=13.9.0,<16.0.0",
+    "typer>=0.12.0,<1.0.0"
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=8.0.0",
-    "pytest-mock>=3.14.0",
-    "pytest-cov>=5.0.0",
-    "flake8>=7.0.0",
-    "pylint>=3.0.0"
+    "pytest>=8.0.0,<10.0.0",
+    "pytest-mock>=3.14.0,<4.0.0",
+    "pytest-cov>=5.0.0,<8.0.0",
+    "flake8>=7.0.0,<8.0.0",
+    "pylint>=3.0.0,<5.0.0"
 ]
 
 [project.scripts]
