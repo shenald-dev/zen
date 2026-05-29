@@ -50,9 +50,10 @@ def focus(
 
         console = Console()
         console.clear()
+        minute_str = "Minute" if minutes == 1 else "Minutes"
         title = Panel.fit(
             f"[bold cyan]🧘 Zen Mode Activated: {minutes} "
-            "Minutes of Deep Work[/bold cyan]\n"
+            f"{minute_str} of Deep Work[/bold cyan]\n"
             "[gray]Do not disturb. No GUI, just flow.[/gray]",
             border_style="cyan",
             padding=(1, 4)
@@ -85,7 +86,7 @@ def focus(
                 current_second = int(elapsed)
                 if current_second > last_second:
                     progress.update(
-                        task, completed=min(elapsed, seconds), refresh=True
+                        task, completed=elapsed, refresh=True
                     )
                     last_second = current_second
 
@@ -108,17 +109,20 @@ def focus(
         )
         console.print(completion, justify="center")
     except KeyboardInterrupt as exc:
-        if console:
-            console.print("\n")
-            from rich.panel import Panel
-            interrupted = Panel.fit(
-                "[bold yellow]⏸️  Session paused. "
-                "Your focus still matters.[/bold yellow]",
-                border_style="yellow"
-            )
-            console.print(interrupted, justify="center")
-        else:
-            print("\n⏸️  Session paused. Your focus still matters.")
+        try:
+            if console is not None:
+                console.print("\n")
+                from rich.panel import Panel
+                interrupted = Panel.fit(
+                    "[bold yellow]⏸️  Session paused. "
+                    "Your focus still matters.[/bold yellow]",
+                    border_style="yellow"
+                )
+                console.print(interrupted, justify="center")
+            else:
+                print("\n⏸️  Session paused. Your focus still matters.")
+        except KeyboardInterrupt:
+            pass
         raise typer.Exit(code=130) from exc
 
 
