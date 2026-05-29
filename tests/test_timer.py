@@ -41,7 +41,23 @@ def test_focus_valid_minutes(mocker):
     mocker.patch("time.monotonic", side_effect=mock_monotonic)
     result = runner.invoke(app, ["1"])
     assert result.exit_code == 0
-    assert "Zen Mode Activated" in result.output
+    assert "Zen Mode Activated: 1 Minute of Deep Work" in result.output
+    assert "Focus session complete" in result.output
+
+
+def test_focus_valid_minutes_plural(mocker):
+    """Test a valid focus session for plural minutes."""
+    mocker.patch("time.sleep")
+
+    def mock_monotonic():
+        mock_monotonic.current += 10.0
+        return mock_monotonic.current
+
+    mock_monotonic.current = 0.0
+    mocker.patch("time.monotonic", side_effect=mock_monotonic)
+    result = runner.invoke(app, ["2"])
+    assert result.exit_code == 0
+    assert "Zen Mode Activated: 2 Minutes of Deep Work" in result.output
     assert "Focus session complete" in result.output
 
 
@@ -67,6 +83,24 @@ def test_focus_early_keyboard_interrupt(mocker):
     # The application handles the interrupt gracefully and uses raw print
     assert result.exit_code == 130
     assert "Session paused. Your focus still matters." in result.output
+
+
+def test_focus_double_keyboard_interrupt(mocker):
+    """Test handling KeyboardInterrupt within the interrupt handler."""
+    mocker.patch("time.sleep", side_effect=KeyboardInterrupt)
+    mocker.patch("time.monotonic", return_value=0.0)
+
+    def side_effect_func(*args, **kwargs):  # pylint: disable=unused-argument
+        if side_effect_func.count == 2:
+            raise KeyboardInterrupt
+        side_effect_func.count += 1
+
+    side_effect_func.count = 0
+    mocker.patch("rich.console.Console.print", side_effect=side_effect_func)
+
+    result = runner.invoke(app, ["1"])
+    # The application gracefully handles the double interrupt and exits 130
+    assert result.exit_code == 130
 
 
 def test_version_flag():
@@ -131,6 +165,25 @@ def test_focus_sleep_bounds_check(mocker):
 
     assert result.exit_code == 0
     mock_sleep.assert_any_call(0)
+
+
+def test_focus_double_keyboard_interrupt_cleanup(mocker):
+    """Test handling of a double KeyboardInterrupt during cleanup."""
+    mocker.patch("time.sleep", side_effect=KeyboardInterrupt)
+    mocker.patch("time.monotonic", return_value=0.0)
+
+    def mock_print(*args, **kwargs):  # pylint: disable=unused-argument
+        mock_print.call_count += 1
+        # Raise KeyboardInterrupt on the 6th print call to simulate a
+        # second Ctrl+C during the cleanup routine
+        if mock_print.call_count == 6:
+            raise KeyboardInterrupt
+
+    mock_print.call_count = 0
+    mocker.patch("rich.console.Console.print", side_effect=mock_print)
+
+    result = runner.invoke(app, ["1"], catch_exceptions=False)
+    assert result.exit_code == 130
 
 
 def test_main(mocker):
