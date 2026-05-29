@@ -32,4 +32,3 @@ omit = [
     "src/zen/__main__.py",
     "src/zen/__init__.py"
 ]
-```
