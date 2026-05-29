@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.1.16] - 2026-05-29
+
+### Changed
+* **[Assurance]:** Validated test suite structural integrity and removed a redundant test function (\`test_focus_double_keyboard_interrupt\`) causing a redefined name linting error.
+* **[Release]:** Cut release v0.1.16 to formalize the lifecycle assessment and finalize codebase stabilization.
+
+## [0.1.15] - 2026-05-28
+
+### Changed
+* **[Performance]:** Moved early exit condition (\`remaining <= 0\`) to the top of the timer loop to avoid redundant elapsed time calculations and unnecessary UI update attempts.
+* **[Maintainability]:** Removed redundant \`min(elapsed, seconds)\` checks during UI refresh since \`elapsed\` is inherently bounded by the loop structure.
+* **[Reliability]:** Hardened the \`KeyboardInterrupt\` terminal cleanup handler with an explicit \`console is not None\` check to prevent ambiguity and ensure robust posix 130 exits.
+* **[Release]:** Cut release v0.1.15 to formalize the lifecycle assessment and finalize codebase stabilization.
+
+## [0.1.14] - 2026-05-26
+
+### Changed
+* **[Reliability]:** Capped all open-ended top-level and development dependencies in \`pyproject.toml\` with safe upper major version bounds to prevent unexpected build failures from future breaking upstream releases.
+* **[Release]:** Cut release v0.1.14 to formalize the lifecycle assessment and finalize codebase stabilization.
+
+## [0.1.13] - 2026-05-22
+
+### Changed
+* **[Assurance]:** Validated codebase structural integrity and implemented an adversarial QA test simulating extreme floating-point drift to guarantee the \`max(0, ...)\` bounds logic for \`time.sleep()\` flawlessly prevents exceptions.
+* **[Release]:** Cut release v0.1.13 to formalize the lifecycle assessment and finalize codebase stabilization.
+
+## [0.1.12] - 2026-05-21
+
+### Changed
+* **[Reliability]:** Addressed an edge case where floating-point drift could cause the calculated sleep duration to evaluate to a negative number, resulting in a \`ValueError\`. Guarded \`time.sleep()\` with a bounds check (\`max(0, ...)\`).
+* **[Release]:** Cut release v0.1.12 to finalize stability improvements.
+
 ## [0.1.11] - 2026-05-20
 
 ### Changed
