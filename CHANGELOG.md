@@ -1,20 +1,19 @@
 # Changelog
 
-<<<<<<< HEAD
-## [0.1.15] - 2026-05-26
+## [0.1.16] - 2026-05-29
 
 ### Changed
-* **[Assurance]:** Reverted the removal of the final `progress.update(...)` call before the loop break. Ensuring the progress bar hits 100% on completion fixes a visual state hanging bug.
-* **[Release]:** Cut release v0.1.15.
-=======
+* **[Assurance]:** Validated test suite structural integrity and removed a redundant test function (`test_focus_double_keyboard_interrupt`) causing a redefined name linting error.
+* **[Release]:** Cut release v0.1.16 to formalize the lifecycle assessment and finalize codebase stabilization.
+
 ## [0.1.15] - 2026-05-28
 
 ### Changed
 * **[Performance]:** Moved early exit condition (`remaining <= 0`) to the top of the timer loop to avoid redundant elapsed time calculations and unnecessary UI update attempts.
 * **[Maintainability]:** Removed redundant `min(elapsed, seconds)` checks during UI refresh since `elapsed` is inherently bounded by the loop structure.
 * **[Reliability]:** Hardened the `KeyboardInterrupt` terminal cleanup handler with an explicit `console is not None` check to prevent ambiguity and ensure robust posix 130 exits.
+* **[Assurance]:** Reverted the removal of the final `progress.update(...)` call before the loop break. Ensuring the progress bar hits 100% on completion fixes a visual state hanging bug.
 * **[Release]:** Cut release v0.1.15 to formalize the lifecycle assessment and finalize codebase stabilization.
->>>>>>> origin/main
 
 ## [0.1.14] - 2026-05-26
 
