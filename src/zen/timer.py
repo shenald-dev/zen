@@ -50,9 +50,10 @@ def focus(
 
         console = Console()
         console.clear()
+        minute_str = "Minute" if minutes == 1 else "Minutes"
         title = Panel.fit(
             f"[bold cyan]🧘 Zen Mode Activated: {minutes} "
-            "Minutes of Deep Work[/bold cyan]\n"
+            f"{minute_str} of Deep Work[/bold cyan]\n"
             "[gray]Do not disturb. No GUI, just flow.[/gray]",
             border_style="cyan",
             padding=(1, 4)
