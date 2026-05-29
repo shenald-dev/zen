@@ -167,7 +167,7 @@ def test_focus_sleep_bounds_check(mocker):
     mock_sleep.assert_any_call(0)
 
 
-def test_focus_double_keyboard_interrupt(mocker):
+def test_focus_double_keyboard_interrupt_cleanup(mocker):
     """Test handling of a double KeyboardInterrupt during cleanup."""
     mocker.patch("time.sleep", side_effect=KeyboardInterrupt)
     mocker.patch("time.monotonic", return_value=0.0)
