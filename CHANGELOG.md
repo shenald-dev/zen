@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.15] - 2026-05-28
+
+### Changed
+* **[Performance]:** Moved early exit condition (`remaining <= 0`) to the top of the timer loop to avoid redundant elapsed time calculations and unnecessary UI update attempts.
+* **[Maintainability]:** Removed redundant `min(elapsed, seconds)` checks during UI refresh since `elapsed` is inherently bounded by the loop structure.
+* **[Reliability]:** Hardened the `KeyboardInterrupt` terminal cleanup handler with an explicit `console is not None` check to prevent ambiguity and ensure robust posix 130 exits.
+* **[Release]:** Cut release v0.1.15 to formalize the lifecycle assessment and finalize codebase stabilization.
+
 ## [0.1.14] - 2026-05-26
 
 ### Changed
