@@ -174,9 +174,9 @@ def test_focus_double_keyboard_interrupt_cleanup(mocker):
 
     def mock_print(*args, **kwargs):  # pylint: disable=unused-argument
         mock_print.call_count += 1
-        # Raise KeyboardInterrupt on the 3rd print call to simulate a
+        # Raise KeyboardInterrupt on the 6th print call to simulate a
         # second Ctrl+C during the cleanup routine
-        if mock_print.call_count == 3:
+        if mock_print.call_count == 6:
             raise KeyboardInterrupt
 
     mock_print.call_count = 0
