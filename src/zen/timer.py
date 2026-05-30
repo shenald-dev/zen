@@ -91,9 +91,10 @@ def focus(
                     )
                     last_second = current_second
 
-                    # Recalculate elapsed to subtract UI rendering overhead
-                    elapsed = time.monotonic() - start_time
-                    remaining = seconds - elapsed
+                # Recalculate elapsed immediately before sleep to absorb
+                # execution overhead natively
+                elapsed = time.monotonic() - start_time
+                remaining = seconds - elapsed
 
                 # Drift-compensated sleep to maintain exact 1Hz refresh rate
                 sleep_interval = 1.0 - (elapsed % 1.0)
