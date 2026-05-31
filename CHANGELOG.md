@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.15] - 2026-05-26
+
+### Changed
+* **[Reliability]:** Capped all open-ended top-level and development dependencies in `pyproject.toml` with safe upper major version bounds to prevent unexpected build failures from future breaking upstream releases.
+* **[Assurance]:** Validated codebase structural integrity, tested edge cases, and confirmed that the drift-compensated UI performance and `ValueError` boundary fixes remain entirely stable. Found no unused exports or dead code to prune.
+* **[Dependencies]:** Bumped minimum dependency baselines to `rich>=13.9.4` and `typer>=0.12.5` to ensure compatibility and leverage latest library patches.
+* **[Release]:** Cut release v0.1.15 to formalize the lifecycle assessment and finalize codebase stabilization.
 ## [0.1.17] - 2026-05-30
 
 ### Changed
