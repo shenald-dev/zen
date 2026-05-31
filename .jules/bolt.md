@@ -130,3 +130,14 @@ In time-based loops using `rich.progress.Progress`, if the loop breaks as soon a
 
 Action:
 Explicitly update the progress bar to 100% immediately before the `break` statement in time-based loops.
+
+## 2024-05-26 — Cap dependencies and fix progress completion
+Learning: Open-ended dependencies risk build failures, and UI loops should cleanly hit 100% before breaking.
+Action: Always enforce upper major version bounds in pyproject.toml and ensure progress bars reach max capacity.
+## 2026-05-31 — Unconditional Time Recalculation
+
+Learning:
+Drift-compensation can be skewed by loop execution overhead even when UI updates are skipped.
+
+Action:
+Recalculate elapsed time immediately before calculating the sleep interval unconditionally on every loop iteration.
