@@ -83,7 +83,6 @@ def focus(
                     progress.update(task, completed=seconds, refresh=True)
                     break
 
-                # Only refresh UI when a full second has passed
                 current_second = int(elapsed)
                 if current_second > last_second:
                     progress.update(
@@ -94,6 +93,9 @@ def focus(
                     # Recalculate elapsed to subtract UI rendering overhead
                     elapsed = time.monotonic() - start_time
                     remaining = seconds - elapsed
+
+                    if remaining <= 0:
+                        break
 
                 # Drift-compensated sleep to maintain exact 1Hz refresh rate
                 sleep_interval = 1.0 - (elapsed % 1.0)
