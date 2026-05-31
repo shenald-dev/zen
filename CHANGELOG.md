@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.17] - 2026-05-31
+
+### Changed
+* **[Assurance]:** Validated codebase structural integrity, ran adversarial QA, and ensured testing and static analysis fully pass. No regressions found after previous agent codebase maintenance.
+* **[Release]:** Cut release v0.1.17 to formalize the lifecycle assessment and finalize codebase stabilization.
+
 ## [0.1.16] - 2026-05-29
 
 ### Changed
