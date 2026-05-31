@@ -123,6 +123,10 @@ For simple CLI tools where rich help text formatting is not strictly required, p
 ## 2026-05-18 — Stateful mocking for monotonic time
 Learning: Mocking time.monotonic() with static staggered return values (e.g., 0.0 then 60.1) is brittle when TUI libraries (like rich) make unpredictable internal timing calls. This consumes the expected values early, leaving the main loop with stale data and causing infinite test hangs.
 Action: Always mock monotonic time by dynamically incrementing a stateful counter on each call (e.g., mock_monotonic.current += 10.0) to guarantee time always moves forward naturally regardless of unseen internal library calls.
+
+## 2026-05-20 — True coverage for package metadata fallbacks
+Learning: Masking exception blocks (e.g., `except importlib.metadata.PackageNotFoundError:`) with `# pragma: no cover` artificially inflates coverage metrics and leaves fallback logic untested, opening the door for subtle regressions when the code is run from uninstalled environments.
+Action: Always write explicit tests mocking `importlib.metadata.version` (via `mocker.patch(..., side_effect=...)`) to ensure fallback branches are genuinely executed and verified rather than just ignored by coverage tools.
 ## 2026-05-27 — Progress Bar UX Fix
 
 Learning:

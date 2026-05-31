@@ -110,8 +110,8 @@ def test_version_flag():
     assert "zen-timer version" in result.output
 
 
-def test_version_flag_package_not_found(mocker):
-    """Test that the --version flag outputs unknown if package not found."""
+def test_version_not_found(mocker):
+    """Test fallback when the package version cannot be found."""
     import importlib.metadata  # pylint: disable=import-outside-toplevel
     mocker.patch(
         "importlib.metadata.version",
