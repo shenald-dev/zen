@@ -110,6 +110,7 @@ def focus(
         try:
             if console is not None:
                 console.print("\n")
+                from rich.panel import Panel
                 interrupted = Panel.fit(
                     "[bold yellow]⏸️  Session paused. "
                     "Your focus still matters.[/bold yellow]",

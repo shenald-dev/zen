@@ -27,6 +27,8 @@
 ## [0.1.14] - 2026-05-26
 
 ### Changed
+* **[Reliability]:** Capped all open-ended top-level and development dependencies in `pyproject.toml` with safe upper major version bounds to prevent unexpected build failures from future breaking upstream releases.
+* **[Assurance]:** Validated codebase structural integrity. Static analysis and test suite execution yielded zero errors and 100% coverage. No dead code or architectural vulnerabilities were found. Entropy is stable.
 * **[Reliability]:** Explicitly set `rich.progress.Progress` to 100% completion before breaking the loop, preventing edge cases where the progress bar hangs visually incomplete.
 * **[Reliability]:** Modified the `console` truthiness check in the exception handler to explicitly check `console is not None`. Guarded dependency baselines with safe upper bounds (`rich<16.0.0`, `typer<0.26.0`) in `pyproject.toml` to prevent future breaking releases from breaking the build.
 * **[Release]:** Cut release v0.1.14 to finalize stability and safety improvements.
