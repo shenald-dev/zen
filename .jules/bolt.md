@@ -1,3 +1,11 @@
+## 2026-05-26 — Bounding Dependency Baselines
+
+Learning:
+Open-ended dependencies (e.g., `>=`) in `pyproject.toml` leave CLI tools vulnerable to unexpected build failures and breaking API changes when upstream libraries cut major versions.
+
+Action:
+Always cap top-level dependencies with a major version bound (`<X.0.0`) when stability is prioritized over cutting-edge features.
+
 ﻿2026-03-18 — No graceful Ctrl+C in TUI timer
 Learning: Terminal TUI apps using Rich Progress without KeyboardInterrupt handling leave the terminal in a dirty state on interrupt. This is a common gap in small CLI tools.
 Action: Always verify interrupt handling in terminal UI code. Wrap Progress/interactive blocks in try/except KeyboardInterrupt.
@@ -119,3 +127,21 @@ Action: Always mock monotonic time by dynamically incrementing a stateful counte
 ## 2026-05-20 — True coverage for package metadata fallbacks
 Learning: Masking exception blocks (e.g., `except importlib.metadata.PackageNotFoundError:`) with `# pragma: no cover` artificially inflates coverage metrics and leaves fallback logic untested, opening the door for subtle regressions when the code is run from uninstalled environments.
 Action: Always write explicit tests mocking `importlib.metadata.version` (via `mocker.patch(..., side_effect=...)`) to ensure fallback branches are genuinely executed and verified rather than just ignored by coverage tools.
+## 2026-05-27 — Progress Bar UX Fix
+
+Learning:
+In time-based loops using `rich.progress.Progress`, if the loop breaks as soon as elapsed time exceeds the target, the progress bar may not visually reach 100% before terminating.
+
+Action:
+Explicitly update the progress bar to 100% immediately before the `break` statement in time-based loops.
+
+## 2024-05-26 — Cap dependencies and fix progress completion
+Learning: Open-ended dependencies risk build failures, and UI loops should cleanly hit 100% before breaking.
+Action: Always enforce upper major version bounds in pyproject.toml and ensure progress bars reach max capacity.
+## 2026-05-31 — Unconditional Time Recalculation
+
+Learning:
+Drift-compensation can be skewed by loop execution overhead even when UI updates are skipped.
+
+Action:
+Recalculate elapsed time immediately before calculating the sleep interval unconditionally on every loop iteration.
