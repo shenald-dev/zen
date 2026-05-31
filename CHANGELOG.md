@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.17] - 2026-05-30
+
+### Changed
+* **[Assurance]:** Assessed the repository state after the previous agent's run. Tests are passing with full coverage. No dead code, orphaned exports, or structural entropy was found. Verified that package dependencies remain properly bounded.
 ## [0.1.17] - 2026-05-31
 
 ### Changed
