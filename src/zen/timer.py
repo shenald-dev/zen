@@ -91,7 +91,8 @@ def focus(
                     )
                     last_second = current_second
 
-                # Recalculate unconditionally to absorb all loop overhead
+                # Recalculate elapsed immediately before sleep to absorb
+                # execution overhead natively
                 elapsed = time.monotonic() - start_time
                 remaining = seconds - elapsed
 
