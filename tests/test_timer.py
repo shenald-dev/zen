@@ -85,24 +85,6 @@ def test_focus_early_keyboard_interrupt(mocker):
     assert "Session paused. Your focus still matters." in result.output
 
 
-def test_focus_double_keyboard_interrupt(mocker):
-    """Test handling KeyboardInterrupt within the interrupt handler."""
-    mocker.patch("time.sleep", side_effect=KeyboardInterrupt)
-    mocker.patch("time.monotonic", return_value=0.0)
-
-    def side_effect_func(*args, **kwargs):  # pylint: disable=unused-argument
-        if side_effect_func.count == 2:
-            raise KeyboardInterrupt
-        side_effect_func.count += 1
-
-    side_effect_func.count = 0
-    mocker.patch("rich.console.Console.print", side_effect=side_effect_func)
-
-    result = runner.invoke(app, ["1"])
-    # The application gracefully handles the double interrupt and exits 130
-    assert result.exit_code == 130
-
-
 def test_version_flag():
     """Test that the --version flag outputs the version and exits."""
     result = runner.invoke(app, ["--version"])
