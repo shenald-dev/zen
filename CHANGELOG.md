@@ -1,11 +1,5 @@
 # Changelog
 
-## [0.1.17] - 2026-06-01
-
-### Changed
-* **[Assurance]:** Assessed the repository state after the previous agent's run. Tests are passing with full coverage. No dead code, orphaned exports, or structural entropy was found. Verified that package dependencies remain properly bounded.
-* **[Release]:** Cut release v0.1.17 to formalize the lifecycle assessment and finalize codebase stabilization.
-
 ## [0.1.16] - 2026-05-29
 
 ### Changed
