@@ -145,3 +145,11 @@ Drift-compensation can be skewed by loop execution overhead even when UI updates
 
 Action:
 Recalculate elapsed time immediately before calculating the sleep interval unconditionally on every loop iteration.
+
+## 2026-06-01 — Drift-Compensated Sleep Loop Overhead
+
+Learning:
+When implementing drift-compensated sleep loops, updating elapsed time conditionally (e.g., only after UI renders) fails to account for loop execution overhead on non-render iterations, causing cumulative desync.
+
+Action:
+Recalculate elapsed time immediately before calculating the sleep interval on *every* loop iteration to natively absorb loop execution overhead.

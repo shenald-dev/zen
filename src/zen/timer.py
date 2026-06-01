@@ -91,8 +91,7 @@ def focus(
                     )
                     last_second = current_second
 
-                # Recalculate elapsed to natively absorb loop execution
-                # overhead
+                # Recalculate elapsed to natively absorb loop execution overhead
                 elapsed = time.monotonic() - start_time
                 remaining = seconds - elapsed
 
