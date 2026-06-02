@@ -61,6 +61,38 @@ def test_focus_valid_minutes_plural(mocker):
     assert "Focus session complete" in result.output
 
 
+def test_focus_break_flag(mocker):
+    """Test that the --break flag modifies the UI appropriately."""
+    mocker.patch("time.sleep")
+
+    def mock_monotonic():
+        mock_monotonic.current += 10.0
+        return mock_monotonic.current
+
+    mock_monotonic.current = 0.0
+    mocker.patch("time.monotonic", side_effect=mock_monotonic)
+    result = runner.invoke(app, ["5", "--break"])
+    assert result.exit_code == 0
+    assert "Break Time: 5 Minutes" in result.output
+    assert "Break complete. Ready to focus?" in result.output
+
+
+def test_focus_silent_flag(mocker):
+    """Test that the --silent flag omits the terminal bell."""
+    mocker.patch("time.sleep")
+    mock_bell = mocker.patch("rich.console.Console.bell")
+
+    def mock_monotonic():
+        mock_monotonic.current += 10.0
+        return mock_monotonic.current
+
+    mock_monotonic.current = 0.0
+    mocker.patch("time.monotonic", side_effect=mock_monotonic)
+    result = runner.invoke(app, ["1", "--silent"])
+    assert result.exit_code == 0
+    mock_bell.assert_not_called()
+
+
 def test_focus_keyboard_interrupt(mocker):
     """Test handling of KeyboardInterrupt (Ctrl+C)."""
     # Simulate a KeyboardInterrupt on the first sleep call

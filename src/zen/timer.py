@@ -24,9 +24,15 @@ def version_callback(value: bool):
 
 
 @app.command()
-def focus(
+def focus(  # pylint: disable=too-many-statements
     minutes: int = typer.Argument(
         25, min=1, max=1440, help="Minutes to focus for"
+    ),
+    is_break: bool = typer.Option(
+        False, "--break", help="Start a break session."
+    ),
+    silent: bool = typer.Option(
+        False, "--silent", help="Run without desktop notifications."
     ),
     version: bool = typer.Option(  # pylint: disable=unused-argument
         None,
@@ -51,11 +57,26 @@ def focus(
         console = Console()
         console.clear()
         minute_str = "Minute" if minutes == 1 else "Minutes"
+        if is_break:
+            title_text = (
+                f"[bold green]☕ Break Time: {minutes} "
+                f"{minute_str}[/bold green]\n"
+                "[gray]Rest and recharge.[/gray]"
+            )
+            border_style = "green"
+            task_desc = "[green]Recharging..."
+        else:
+            title_text = (
+                f"[bold cyan]🧘 Zen Mode Activated: {minutes} "
+                f"{minute_str} of Deep Work[/bold cyan]\n"
+                "[gray]Do not disturb. No GUI, just flow.[/gray]"
+            )
+            border_style = "cyan"
+            task_desc = "[cyan]Flow State..."
+
         title = Panel.fit(
-            f"[bold cyan]🧘 Zen Mode Activated: {minutes} "
-            f"{minute_str} of Deep Work[/bold cyan]\n"
-            "[gray]Do not disturb. No GUI, just flow.[/gray]",
-            border_style="cyan",
+            title_text,
+            border_style=border_style,
             padding=(1, 4)
         )
         console.print(title, justify="center")
@@ -70,7 +91,7 @@ def focus(
             transient=False,
             auto_refresh=False,  # Disable background thread for performance
         ) as progress:
-            task = progress.add_task("[cyan]Flow State...", total=seconds)
+            task = progress.add_task(task_desc, total=seconds)
 
             start_time = time.monotonic()
             last_second = -1
@@ -91,7 +112,8 @@ def focus(
                     )
                     last_second = current_second
 
-                # Recalculate elapsed to natively absorb loop execution overhead
+                # Recalculate elapsed to natively absorb loop execution
+                # overhead
                 elapsed = time.monotonic() - start_time
                 remaining = seconds - elapsed
 
@@ -100,11 +122,20 @@ def focus(
                 time.sleep(max(0, min(sleep_interval, remaining)))
 
         console.print("\n")
-        console.bell()
-        completion = Panel.fit(
-            "[bold green]✨ Focus session complete. Take a break.[/bold green]",
-            border_style="green"
-        )
+        if not silent:
+            console.bell()
+
+        if is_break:
+            completion = Panel.fit(
+                "[bold cyan]✨ Break complete. Ready to focus?[/bold cyan]",
+                border_style="cyan"
+            )
+        else:
+            completion = Panel.fit(
+                "[bold green]✨ Focus session complete. "
+                "Take a break.[/bold green]",
+                border_style="green"
+            )
         console.print(completion, justify="center")
     except KeyboardInterrupt as exc:
         try:
