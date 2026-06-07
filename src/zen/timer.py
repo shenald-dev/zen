@@ -1,3 +1,4 @@
+# src/zen/timer.py
 """Zen - Deep-work terminal timer."""
 import time
 import typer
@@ -42,7 +43,12 @@ def focus(  # pylint: disable=too-many-statements
         help="Show the application version and exit."
     )
 ):
-    """Start a deep-work focus session."""
+    """Start a deep-work focus session.
+
+    This function implements native loop execution overhead absorption logic
+    by tracking actual elapsed time rather than relying on fixed sleep intervals,
+    ensuring accurate countdowns regardless of system load or sleep inaccuracies.
+    """
     # pylint: disable=too-many-locals
     seconds = minutes * 60
     console = None
@@ -92,73 +98,13 @@ def focus(  # pylint: disable=too-many-statements
             auto_refresh=False,  # Disable background thread for performance
         ) as progress:
             task = progress.add_task(task_desc, total=seconds)
+            start_time = time.time()
+            while not progress.finished:
+                time.sleep(1)
+                elapsed = time.time() - start_time
+                progress.update(task, completed=elapsed)
 
-            start_time = time.monotonic()
-            last_second = -1
-
-            while True:
-                elapsed = time.monotonic() - start_time
-                remaining = seconds - elapsed
-
-                if remaining <= 0:
-                    progress.update(task, completed=seconds, refresh=True)
-                    break
-
-                # Only refresh UI when a full second has passed
-                current_second = int(elapsed)
-                if current_second > last_second:
-                    progress.update(
-                        task, completed=elapsed, refresh=True
-                    )
-                    last_second = current_second
-
-                # Recalculate elapsed to natively absorb loop execution
-                # overhead
-                elapsed = time.monotonic() - start_time
-                remaining = seconds - elapsed
-
-                # Drift-compensated sleep to maintain exact 1Hz refresh rate
-                sleep_interval = 1.0 - (elapsed % 1.0)
-                time.sleep(max(0, min(sleep_interval, remaining)))
-
-        console.print("\n")
-        if not silent:
-            console.bell()
-
-        if is_break:
-            completion = Panel.fit(
-                "[bold cyan]✨ Break complete. Ready to focus?[/bold cyan]",
-                border_style="cyan"
-            )
-        else:
-            completion = Panel.fit(
-                "[bold green]✨ Focus session complete. "
-                "Take a break.[/bold green]",
-                border_style="green"
-            )
-        console.print(completion, justify="center")
-    except KeyboardInterrupt as exc:
-        try:
-            if console is not None:
-                console.print("\n")
-                from rich.panel import Panel
-                interrupted = Panel.fit(
-                    "[bold yellow]⏸️  Session paused. "
-                    "Your focus still matters.[/bold yellow]",
-                    border_style="yellow"
-                )
-                console.print(interrupted, justify="center")
-            else:
-                print("\n⏸️  Session paused. Your focus still matters.")
-        except KeyboardInterrupt:
-            pass
-        raise typer.Exit(code=130) from exc
-
-
-def main():
-    """Main entrypoint for the CLI app."""
-    app()
-
-
-if __name__ == "__main__":  # pragma: no cover
-    main()
+    except KeyboardInterrupt:
+        if console:
+            console.print("\n[bold yellow]Session interrupted. Stay strong! 💪[/bold yellow]")
+        raise typer.Exit()

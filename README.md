@@ -1,3 +1,4 @@
+# README.md
 <div align="center">
   <img src="assets/logo.png" alt="zen Logo" width="250" />
   
@@ -44,24 +45,27 @@
 ### Installation
 
 Install via pip:
-```bash
-pip install zen-timer
-```
-
 ---
 
 ## 💻 Comprehensive Usage
 
 ### Start a Session
 To start a default 25-minute Pomodoro session:
-```bash
-zen 25
-```
-
 ### Advanced Usage
-- `--break`: Start a break session (e.g., `zen 5 --break`).
-- `--silent`: Run without desktop notifications upon completion.
 
+**zen** supports additional CLI flags to customize your workflow:
+
+- **`--break`**: Run the timer as a break session instead of a focus session. Ideal for timing your rest periods between deep work blocks.
+  ```bash
+  zen 5 --break
+  ```
+
+- **`--silent`**: Run the timer without sending desktop notifications upon completion. Perfect for environments where notifications are distracting or unsupported.
+  ```bash
+  zen 25 --silent
+  ```
+
+You can also combine these flags for a silent break session:
 ---
 
 ## 🤝 Contributing

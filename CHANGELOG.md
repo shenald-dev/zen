@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.2.0] - 2026-06-07
+
+- 3ddab17 chore(sentinel): update monitoring log
+- ecb8618 Merge pull request #94 from shenald-dev/fix-flags-14878245424356851776
+- fbbad6f feat: implement missing --break and --silent flags
+- 44c3320 Overhaul README with enterprise documentation
+- 5b20c03 Merge pull request #91 from shenald-dev/jules-6655885585142042685-82b295ba
+- e658e41 Fix merge conflicts
+- 92ca15b Merge pull request #92 from shenald-dev/perf/fix-drift-compensator-12867860605910637296
+- d9fe2ea Merge pull request #93 from shenald-dev/jules-4701882264156056631-c3d260d5
+- 34ff79b chore(release): v0.1.17
+- 88cf395 perf: natively absorb loop execution overhead in sleep intervals
+
+
 ## [0.1.17] - 2026-06-01
 
 ### Changed
