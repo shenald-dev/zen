@@ -21,7 +21,9 @@
     "security_high": 0,
     "security_medium": 0,
     "security_low": 0,
-    "docs_updated": [],
+    "docs_updated": [
+      "src/zen/__main__.py"
+    ],
     "release_version": null,
     "blockers": []
   }
