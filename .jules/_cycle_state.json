@@ -21,12 +21,8 @@
     "security_high": 0,
     "security_medium": 0,
     "security_low": 0,
-    "docs_updated": [
-      "README.md",
-      "src/zen/__main__.py",
-      "src/zen/timer.py"
-    ],
-    "release_version": "0.2.0",
+    "docs_updated": [],
+    "release_version": null,
     "blockers": []
   }
 }
