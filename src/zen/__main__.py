@@ -1,7 +1,9 @@
+"""Entry point for the zen-timer application."""
 from zen.timer import app
 
 
 def main():
+    """Run the main application."""
     app()
 
 
