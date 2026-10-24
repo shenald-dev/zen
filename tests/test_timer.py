@@ -161,7 +161,7 @@ def test_focus_sleep_bounds_check(mocker):
         if (len(args) == 2 and isinstance(args[0], float) and
                 isinstance(args[1], float)):
             # If we are in the focus loop
-            if args[1] <= 60.0 and args[1] >= 0.0:
+            if 0.0 <= args[1] <= 60.0:
                 return -0.5
         return original_min(*args, **kwargs)
 
