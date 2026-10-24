@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+* **[Fixed / Pruned]:** Addressed minor codebase entropy by fixing missing docstrings in the main entry module (`src/zen/__main__.py`) and simplifying chained comparison logic in test fixtures (`tests/test_timer.py`).
+
 ## [0.2.0] - 2026-06-07
 
 - 3ddab17 chore(sentinel): update monitoring log
