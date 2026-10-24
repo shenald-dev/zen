@@ -1,1 +1,9 @@
-I received your request but my response was interrupted. Please try again.
+from zen.timer import app
+
+
+def main():
+    app()
+
+
+if __name__ == "__main__":
+    main()

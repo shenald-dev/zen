@@ -16,6 +16,8 @@ jobs:
       with:
         python-version: '3.11'
     - name: Install
-      run: pip install .
+      run: pip install .[dev]
     - name: Test Build
       run: zen --help
+    - name: Run Tests
+      run: pytest
