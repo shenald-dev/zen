@@ -153,3 +153,8 @@ When implementing drift-compensated sleep loops, updating elapsed time condition
 
 Action:
 Recalculate elapsed time immediately before calculating the sleep interval on *every* loop iteration to natively absorb loop execution overhead.
+
+## 2026-06-25 — Structural Typechecking Enhancements
+
+- **Learning:** Although the repository runs linting and basic tests, Typer application endpoints (and some `__main__` initializations) lacked strict return type annotations, preventing full validation under static type analysis via `mypy`. Additionally, decorators like `@app.command()` can mask typed function signatures.
+- **Action:** Ensure standard function bounds (e.g., `-> None` for `main` and `version_callback`) are explicitly defined. For dynamically typed CLI decorators like Typer's `@app.command()`, utilize `# type: ignore` pragmatically to prevent false positives when running `mypy --strict`.
