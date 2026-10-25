@@ -11,7 +11,7 @@ app = typer.Typer(
 )
 
 
-def version_callback(value: bool):
+def version_callback(value: bool) -> None:
     """Callback for the --version option."""
     if value:
         import importlib.metadata  # pylint: disable=import-outside-toplevel
@@ -23,7 +23,7 @@ def version_callback(value: bool):
         raise typer.Exit()
 
 
-@app.command()
+@app.command()  # type: ignore
 def focus(  # pylint: disable=too-many-statements
     minutes: int = typer.Argument(
         25, min=1, max=1440, help="Minutes to focus for"
@@ -41,7 +41,7 @@ def focus(  # pylint: disable=too-many-statements
         is_eager=True,
         help="Show the application version and exit."
     )
-):
+) -> None:
     """Start a deep-work focus session."""
     # pylint: disable=too-many-locals
     seconds = minutes * 60
@@ -155,7 +155,7 @@ def focus(  # pylint: disable=too-many-statements
         raise typer.Exit(code=130) from exc
 
 
-def main():
+def main() -> None:
     """Main entrypoint for the CLI app."""
     app()
 

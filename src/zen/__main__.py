@@ -2,7 +2,7 @@
 from zen.timer import app
 
 
-def main():
+def main() -> None:
     """Run the main application."""
     app()
 
