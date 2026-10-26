@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 ### Changed
+* **[Pruned]:** Removed an unused `# type: ignore` comment in `src/zen/timer.py` after `mypy` structural typechecking updates correctly typed `@app.command()`.
 * **[Assurance]:** Validated codebase structural integrity post recent fixes. Static analysis and test suite execution yielded zero errors and 100% coverage. No dead code or architectural vulnerabilities were found. Entropy is stable.
 
 # Changelog
