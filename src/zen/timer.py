@@ -23,7 +23,7 @@ def version_callback(value: bool) -> None:
         raise typer.Exit()
 
 
-@app.command()
+@app.command()  # type: ignore[untyped-decorator]
 def focus(  # pylint: disable=too-many-statements
     minutes: int = typer.Argument(
         25, min=1, max=1440, help="Minutes to focus for"
