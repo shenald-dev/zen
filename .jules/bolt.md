@@ -158,3 +158,7 @@ Recalculate elapsed time immediately before calculating the sleep interval on *e
 
 - **Learning:** Although the repository runs linting and basic tests, Typer application endpoints (and some `__main__` initializations) lacked strict return type annotations, preventing full validation under static type analysis via `mypy`. Additionally, decorators like `@app.command()` can mask typed function signatures.
 - **Action:** Ensure standard function bounds (e.g., `-> None` for `main` and `version_callback`) are explicitly defined. For dynamically typed CLI decorators like Typer's `@app.command()`, utilize `# type: ignore` pragmatically to prevent false positives when running `mypy --strict`.
+
+## 2026-06-26 — Mypy Typing for Typer Decorators
+- **Learning:** Untyped decorators like Typer's `@app.command()` throw `untyped-decorator` errors when running `mypy --strict`. Third-party libraries like Typer and Rich may also throw `import-not-found` errors without `ignore_missing_imports`.
+- **Action:** Ensure standard function bounds are defined. Suppress untyped Typer decorators with `# type: ignore[untyped-decorator]` and configure `pyproject.toml` with `[tool.mypy]` and `ignore_missing_imports = true` to pass strict type checks.
