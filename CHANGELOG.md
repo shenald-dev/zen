@@ -203,3 +203,6 @@
 - **[Pruned]:** Removed an unused `pytest` import from the test suite.
 - **[Dependencies]:** Bumped minimum dependency baselines to `rich>=13.9.0` and `typer>=0.12.0`.
 - **[Testing]:** Added missing test coverage for the root CLI app module execution path.
+
+## [Unreleased]
+**[Fixed]:** Fixed mypy untyped-decorator issue by reverting a previous commit that removed type ignores and correctly configured mypy's `ignore_missing_imports`.
