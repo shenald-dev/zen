@@ -24,7 +24,7 @@ def version_callback(value: bool) -> None:
 
 
 @app.command()  # type: ignore[untyped-decorator]
-def focus(  # pylint: disable=too-many-statements
+def focus(  # pylint: disable=too-many-statements,too-many-branches
     minutes: int = typer.Argument(
         25, min=1, max=1440, help="Minutes to focus for"
     ),
@@ -65,6 +65,7 @@ def focus(  # pylint: disable=too-many-statements
             )
             border_style = "green"
             task_desc = "[green]Recharging..."
+            bar_complete_style = "green"
         else:
             title_text = (
                 f"[bold cyan]🧘 Zen Mode Activated: {minutes} "
@@ -73,6 +74,7 @@ def focus(  # pylint: disable=too-many-statements
             )
             border_style = "cyan"
             task_desc = "[cyan]Flow State..."
+            bar_complete_style = "cyan"
 
         title = Panel.fit(
             title_text,
@@ -84,7 +86,11 @@ def focus(  # pylint: disable=too-many-statements
 
         with Progress(
             TextColumn("[progress.description]{task.description}"),
-            BarColumn(bar_width=None, style="magenta", complete_style="cyan"),
+            BarColumn(
+                bar_width=None,
+                style="magenta",
+                complete_style=bar_complete_style
+            ),
             TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
             TimeRemainingColumn(),
             console=console,
@@ -138,18 +144,22 @@ def focus(  # pylint: disable=too-many-statements
             )
         console.print(completion, justify="center")
     except KeyboardInterrupt as exc:
+        if is_break:
+            msg = "⏸️  Break paused. Rest is important too."
+        else:
+            msg = "⏸️  Session paused. Your focus still matters."
+
         try:
             if console is not None:
                 console.print("\n")
                 from rich.panel import Panel
                 interrupted = Panel.fit(
-                    "[bold yellow]⏸️  Session paused. "
-                    "Your focus still matters.[/bold yellow]",
+                    f"[bold yellow]{msg}[/bold yellow]",
                     border_style="yellow"
                 )
                 console.print(interrupted, justify="center")
             else:
-                print("\n⏸️  Session paused. Your focus still matters.")
+                print(f"\n{msg}")
         except KeyboardInterrupt:
             pass
         raise typer.Exit(code=130) from exc
