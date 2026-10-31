@@ -1,25 +1,29 @@
 """Tests for zen-timer."""
+from typing import Any
+
+from pytest_mock import MockerFixture
 from typer.testing import CliRunner
+
 from zen.timer import app
 
 runner = CliRunner()
 
 
-def test_focus_invalid_minutes():
+def test_focus_invalid_minutes() -> None:
     """Test that focusing for less than 1 minute raises an error."""
     result = runner.invoke(app, ["0"])
     assert result.exit_code == 2
     assert "0 is not in the range 1<=x<=1440." in result.output
 
 
-def test_focus_invalid_minutes_too_high():
+def test_focus_invalid_minutes_too_high() -> None:
     """Test that focusing for more than 1440 minutes raises an error."""
     result = runner.invoke(app, ["1500"])
     assert result.exit_code == 2
     assert "1500 is not in the range 1<=x<=1440." in result.output
 
 
-def test_focus_valid_minutes(mocker):
+def test_focus_valid_minutes(mocker: MockerFixture) -> None:
     """Test a valid focus session."""
     # Mock time.sleep to avoid actually waiting during the test
     mocker.patch("time.sleep")
@@ -27,11 +31,17 @@ def test_focus_valid_minutes(mocker):
     # Mock time.monotonic to instantly advance past the duration
     # We use a generator or function so it doesn't run out of side effects
     # if rich calls it more
-    def mock_monotonic():
-        mock_monotonic.current += 10.0
-        return mock_monotonic.current
+    class MockMonotonic:  # pylint: disable=R0903
+        """Mock for time.monotonic."""
 
-    mock_monotonic.current = 0.0
+        def __init__(self) -> None:
+            self.current = 0.0
+
+        def __call__(self) -> float:
+            self.current += 10.0
+            return self.current
+
+    mock_monotonic = MockMonotonic()
     mocker.patch("time.monotonic", side_effect=mock_monotonic)
     result = runner.invoke(app, ["1"])
     assert result.exit_code == 0
@@ -39,15 +49,21 @@ def test_focus_valid_minutes(mocker):
     assert "Focus session complete" in result.output
 
 
-def test_focus_valid_minutes_plural(mocker):
+def test_focus_valid_minutes_plural(mocker: MockerFixture) -> None:
     """Test a valid focus session for plural minutes."""
     mocker.patch("time.sleep")
 
-    def mock_monotonic():
-        mock_monotonic.current += 10.0
-        return mock_monotonic.current
+    class MockMonotonic:  # pylint: disable=R0903
+        """Mock for time.monotonic."""
 
-    mock_monotonic.current = 0.0
+        def __init__(self) -> None:
+            self.current = 0.0
+
+        def __call__(self) -> float:
+            self.current += 10.0
+            return self.current
+
+    mock_monotonic = MockMonotonic()
     mocker.patch("time.monotonic", side_effect=mock_monotonic)
     result = runner.invoke(app, ["2"])
     assert result.exit_code == 0
@@ -55,15 +71,21 @@ def test_focus_valid_minutes_plural(mocker):
     assert "Focus session complete" in result.output
 
 
-def test_focus_break_flag(mocker):
+def test_focus_break_flag(mocker: MockerFixture) -> None:
     """Test that the --break flag modifies the UI appropriately."""
     mocker.patch("time.sleep")
 
-    def mock_monotonic():
-        mock_monotonic.current += 10.0
-        return mock_monotonic.current
+    class MockMonotonic:  # pylint: disable=R0903
+        """Mock for time.monotonic."""
 
-    mock_monotonic.current = 0.0
+        def __init__(self) -> None:
+            self.current = 0.0
+
+        def __call__(self) -> float:
+            self.current += 10.0
+            return self.current
+
+    mock_monotonic = MockMonotonic()
     mocker.patch("time.monotonic", side_effect=mock_monotonic)
     result = runner.invoke(app, ["5", "--break"])
     assert result.exit_code == 0
@@ -71,23 +93,29 @@ def test_focus_break_flag(mocker):
     assert "Break complete. Ready to focus?" in result.output
 
 
-def test_focus_silent_flag(mocker):
+def test_focus_silent_flag(mocker: MockerFixture) -> None:
     """Test that the --silent flag omits the terminal bell."""
     mocker.patch("time.sleep")
     mock_bell = mocker.patch("rich.console.Console.bell")
 
-    def mock_monotonic():
-        mock_monotonic.current += 10.0
-        return mock_monotonic.current
+    class MockMonotonic:  # pylint: disable=R0903
+        """Mock for time.monotonic."""
 
-    mock_monotonic.current = 0.0
+        def __init__(self) -> None:
+            self.current = 0.0
+
+        def __call__(self) -> float:
+            self.current += 10.0
+            return self.current
+
+    mock_monotonic = MockMonotonic()
     mocker.patch("time.monotonic", side_effect=mock_monotonic)
     result = runner.invoke(app, ["1", "--silent"])
     assert result.exit_code == 0
     mock_bell.assert_not_called()
 
 
-def test_focus_keyboard_interrupt(mocker):
+def test_focus_keyboard_interrupt(mocker: MockerFixture) -> None:
     """Test handling of KeyboardInterrupt (Ctrl+C)."""
     # Simulate a KeyboardInterrupt on the first sleep call
     mocker.patch("time.sleep", side_effect=KeyboardInterrupt)
@@ -98,7 +126,7 @@ def test_focus_keyboard_interrupt(mocker):
     assert "Session paused. Your focus still matters." in result.output
 
 
-def test_break_keyboard_interrupt(mocker):
+def test_break_keyboard_interrupt(mocker: MockerFixture) -> None:
     """Test handling of KeyboardInterrupt during a break session."""
     mocker.patch("time.sleep", side_effect=KeyboardInterrupt)
     mocker.patch("time.monotonic", return_value=0.0)
@@ -107,7 +135,7 @@ def test_break_keyboard_interrupt(mocker):
     assert "Break paused. Rest is important too." in result.output
 
 
-def test_focus_early_keyboard_interrupt(mocker):
+def test_focus_early_keyboard_interrupt(mocker: MockerFixture) -> None:
     """Test handling of KeyboardInterrupt before rich is initialized."""
     # Simulate a KeyboardInterrupt right when Console is initialized
     mocker.patch(
@@ -120,7 +148,7 @@ def test_focus_early_keyboard_interrupt(mocker):
     assert "Session paused. Your focus still matters." in result.output
 
 
-def test_break_early_keyboard_interrupt(mocker):
+def test_break_early_keyboard_interrupt(mocker: MockerFixture) -> None:
     """Test handling of early KeyboardInterrupt during a break session."""
     mocker.patch(
         "rich.console.Console.__init__",
@@ -131,17 +159,25 @@ def test_break_early_keyboard_interrupt(mocker):
     assert "Break paused. Rest is important too." in result.output
 
 
-def test_focus_double_keyboard_interrupt(mocker):
+def test_focus_double_keyboard_interrupt(mocker: MockerFixture) -> None:
     """Test handling KeyboardInterrupt within the interrupt handler."""
     mocker.patch("time.sleep", side_effect=KeyboardInterrupt)
     mocker.patch("time.monotonic", return_value=0.0)
 
-    def side_effect_func(*args, **kwargs):  # pylint: disable=unused-argument
-        if side_effect_func.count == 2:
-            raise KeyboardInterrupt
-        side_effect_func.count += 1
+    class SideEffectFunc:  # pylint: disable=R0903
+        """Mock for side effect."""
 
-    side_effect_func.count = 0
+        def __init__(self) -> None:
+            self.count = 0
+
+        def __call__(
+            self, *args: Any, **kwargs: Any
+        ) -> Any:  # pylint: disable=unused-argument
+            if self.count == 2:
+                raise KeyboardInterrupt
+            self.count += 1
+
+    side_effect_func = SideEffectFunc()
     mocker.patch("rich.console.Console.print", side_effect=side_effect_func)
 
     result = runner.invoke(app, ["1"])
@@ -149,14 +185,14 @@ def test_focus_double_keyboard_interrupt(mocker):
     assert result.exit_code == 130
 
 
-def test_version_flag():
+def test_version_flag() -> None:
     """Test that the --version flag outputs the version and exits."""
     result = runner.invoke(app, ["--version"])
     assert result.exit_code == 0
     assert "zen-timer version" in result.output
 
 
-def test_version_not_found(mocker):
+def test_version_not_found(mocker: MockerFixture) -> None:
     """Test fallback when the package version cannot be found."""
     import importlib.metadata  # pylint: disable=import-outside-toplevel
     mocker.patch(
@@ -168,13 +204,13 @@ def test_version_not_found(mocker):
     assert "zen-timer version unknown" in result.output
 
 
-def test_focus_sleep_bounds_check(mocker):
+def test_focus_sleep_bounds_check(mocker: MockerFixture) -> None:
     """Test that negative sleep intervals are bounded to 0."""
     mock_sleep = mocker.patch("time.sleep")
 
     original_min = min
 
-    def mock_min(*args, **kwargs):
+    def mock_min(*args: Any, **kwargs: Any) -> Any:
         # We only want to return -0.5 for timer.py calls
         # timer.py calls: min(sleep_interval, remaining)
         # sleep_interval is float, remaining is float.
@@ -188,23 +224,29 @@ def test_focus_sleep_bounds_check(mocker):
     mocker.patch("builtins.min", side_effect=mock_min)
 
     # We need sleep to be called at least once before breaking
-    def mock_monotonic():
-        if mock_monotonic.call_count == 0:
-            mock_monotonic.call_count += 1
-            return 0.0  # Start time
-        if mock_monotonic.call_count == 1:
-            mock_monotonic.call_count += 1
-            return 0.5  # First loop check
-        if mock_monotonic.call_count == 2:
-            mock_monotonic.call_count += 1
-            return 0.6  # Recalculate if UI triggers, or next loop
-        if mock_monotonic.call_count == 3:
-            mock_monotonic.call_count += 1
-            return 60.0  # Breaks loop
-        mock_monotonic.call_count += 1
-        return 65.0
+    class MockMonotonicBounds:  # pylint: disable=R0903
+        """Mock for time.monotonic bounds check."""
 
-    mock_monotonic.call_count = 0
+        def __init__(self) -> None:
+            self.call_count = 0
+
+        def __call__(self) -> float:
+            if self.call_count == 0:
+                self.call_count += 1
+                return 0.0  # Start time
+            if self.call_count == 1:
+                self.call_count += 1
+                return 0.5  # First loop check
+            if self.call_count == 2:
+                self.call_count += 1
+                return 0.6  # Recalculate if UI triggers, or next loop
+            if self.call_count == 3:
+                self.call_count += 1
+                return 60.0  # Breaks loop
+            self.call_count += 1
+            return 65.0
+
+    mock_monotonic = MockMonotonicBounds()
     mocker.patch("time.monotonic", side_effect=mock_monotonic)
 
     result = runner.invoke(app, ["1"])
@@ -213,26 +255,36 @@ def test_focus_sleep_bounds_check(mocker):
     mock_sleep.assert_any_call(0)
 
 
-def test_focus_double_keyboard_interrupt_cleanup(mocker):
+def test_focus_double_keyboard_interrupt_cleanup(
+    mocker: MockerFixture
+) -> None:
     """Test handling of a double KeyboardInterrupt during cleanup."""
     mocker.patch("time.sleep", side_effect=KeyboardInterrupt)
     mocker.patch("time.monotonic", return_value=0.0)
 
-    def mock_print(*args, **kwargs):  # pylint: disable=unused-argument
-        mock_print.call_count += 1
-        # Raise KeyboardInterrupt on the 6th print call to simulate a
-        # second Ctrl+C during the cleanup routine
-        if mock_print.call_count == 6:
-            raise KeyboardInterrupt
+    class MockPrint:  # pylint: disable=R0903
+        """Mock for console print."""
 
-    mock_print.call_count = 0
+        def __init__(self) -> None:
+            self.call_count = 0
+
+        def __call__(
+            self, *args: Any, **kwargs: Any
+        ) -> Any:  # pylint: disable=unused-argument
+            self.call_count += 1
+            # Raise KeyboardInterrupt on the 6th print call to simulate a
+            # second Ctrl+C during the cleanup routine
+            if self.call_count == 6:
+                raise KeyboardInterrupt
+
+    mock_print = MockPrint()
     mocker.patch("rich.console.Console.print", side_effect=mock_print)
 
     result = runner.invoke(app, ["1"], catch_exceptions=False)
     assert result.exit_code == 130
 
 
-def test_main(mocker):
+def test_main(mocker: MockerFixture) -> None:
     """Test that main() calls the Typer app."""
     mock_app = mocker.patch("zen.timer.app")
     # pylint: disable=import-outside-toplevel
