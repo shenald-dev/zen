@@ -207,3 +207,6 @@
 
 ## [Unreleased]
 **[Fixed]:** Fixed mypy untyped-decorator issue by reverting a previous commit that removed type ignores and correctly configured mypy's `ignore_missing_imports`.
+
+## [Unreleased]
+**[Optimized]:** Refactored tests to use properly encapsulated callable classes for stateful mocking to resolve strictly-typed MyPy checks and avoid dynamic attribute assignments.
