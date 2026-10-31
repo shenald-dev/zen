@@ -162,3 +162,7 @@ Recalculate elapsed time immediately before calculating the sleep interval on *e
 ## 2026-06-26 — Mypy Typing for Typer Decorators
 - **Learning:** Untyped decorators like Typer's `@app.command()` throw `untyped-decorator` errors when running `mypy --strict`. Third-party libraries like Typer and Rich may also throw `import-not-found` errors without `ignore_missing_imports`.
 - **Action:** Ensure standard function bounds are defined. Suppress untyped Typer decorators with `# type: ignore[untyped-decorator]` and configure `pyproject.toml` with `[tool.mypy]` and `ignore_missing_imports = true` to pass strict type checks.
+
+## 2026-10-31 — Preserve Mathematical Guards in Sleep Loops
+- **Learning:** While expressions like `max(0, min(sleep_interval, remaining))` may look like over-engineered defensive programming or redundant max/min calls, they are critical mathematical guards in drift-compensated wait loops. If a sleep interval overshoots the remaining duration (even by milliseconds), removing `min(..., remaining)` will cause the loop to overshoot its target termination time. Removing `max(0, ...)` risks passing negative floats to `time.sleep()`, resulting in a `ValueError`.
+- **Action:** Never optimize away `min` and `max` bounds checks inside drift-compensated sleep loops unless the mathematical guarantee is definitively handled elsewhere in the logic.
