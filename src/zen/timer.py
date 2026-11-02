@@ -89,7 +89,8 @@ def focus(  # pylint: disable=too-many-statements,too-many-branches
             BarColumn(
                 bar_width=None,
                 style="magenta",
-                complete_style=bar_complete_style
+                complete_style=bar_complete_style,
+                finished_style=bar_complete_style
             ),
             TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
             TimeRemainingColumn(),
