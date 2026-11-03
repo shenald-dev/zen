@@ -9,6 +9,17 @@ from zen.timer import app
 runner = CliRunner()
 
 
+class MockMonotonic:  # pylint: disable=R0903
+    """Mock for time.monotonic."""
+
+    def __init__(self) -> None:
+        self.current = 0.0
+
+    def __call__(self) -> float:
+        self.current += 10.0
+        return self.current
+
+
 def test_focus_invalid_minutes() -> None:
     """Test that focusing for less than 1 minute raises an error."""
     result = runner.invoke(app, ["0"])
@@ -31,15 +42,6 @@ def test_focus_valid_minutes(mocker: MockerFixture) -> None:
     # Mock time.monotonic to instantly advance past the duration
     # We use a generator or function so it doesn't run out of side effects
     # if rich calls it more
-    class MockMonotonic:  # pylint: disable=R0903
-        """Mock for time.monotonic."""
-
-        def __init__(self) -> None:
-            self.current = 0.0
-
-        def __call__(self) -> float:
-            self.current += 10.0
-            return self.current
 
     mock_monotonic = MockMonotonic()
     mocker.patch("time.monotonic", side_effect=mock_monotonic)
@@ -53,16 +55,6 @@ def test_focus_valid_minutes_plural(mocker: MockerFixture) -> None:
     """Test a valid focus session for plural minutes."""
     mocker.patch("time.sleep")
 
-    class MockMonotonic:  # pylint: disable=R0903
-        """Mock for time.monotonic."""
-
-        def __init__(self) -> None:
-            self.current = 0.0
-
-        def __call__(self) -> float:
-            self.current += 10.0
-            return self.current
-
     mock_monotonic = MockMonotonic()
     mocker.patch("time.monotonic", side_effect=mock_monotonic)
     result = runner.invoke(app, ["2"])
@@ -74,16 +66,6 @@ def test_focus_valid_minutes_plural(mocker: MockerFixture) -> None:
 def test_focus_break_flag(mocker: MockerFixture) -> None:
     """Test that the --break flag modifies the UI appropriately."""
     mocker.patch("time.sleep")
-
-    class MockMonotonic:  # pylint: disable=R0903
-        """Mock for time.monotonic."""
-
-        def __init__(self) -> None:
-            self.current = 0.0
-
-        def __call__(self) -> float:
-            self.current += 10.0
-            return self.current
 
     mock_monotonic = MockMonotonic()
     mocker.patch("time.monotonic", side_effect=mock_monotonic)
@@ -97,16 +79,6 @@ def test_focus_silent_flag(mocker: MockerFixture) -> None:
     """Test that the --silent flag omits the terminal bell."""
     mocker.patch("time.sleep")
     mock_bell = mocker.patch("rich.console.Console.bell")
-
-    class MockMonotonic:  # pylint: disable=R0903
-        """Mock for time.monotonic."""
-
-        def __init__(self) -> None:
-            self.current = 0.0
-
-        def __call__(self) -> float:
-            self.current += 10.0
-            return self.current
 
     mock_monotonic = MockMonotonic()
     mocker.patch("time.monotonic", side_effect=mock_monotonic)
