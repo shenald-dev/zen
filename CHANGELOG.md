@@ -1,4 +1,5 @@
 ## [Unreleased]
+**[Fixed]:** Fixed the mypy untyped-decorator error by adding the missing type ignore comment on the Typer command decorator.
 **[Optimized]:** ATLAS-WARDEN routine pruning and ledger update.
 **[Optimized]:** Validated codebase structural integrity, ran adversarial QA, and ensured testing and static analysis fully pass. No regressions or dead code found after previous optimization agent's run.
 
