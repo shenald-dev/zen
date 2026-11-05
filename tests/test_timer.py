@@ -176,6 +176,20 @@ def test_version_not_found(mocker: MockerFixture) -> None:
     assert "zen-timer version unknown" in result.output
 
 
+def test_focus_break_and_silent_flags(mocker: MockerFixture) -> None:
+    """Test that combining --break and --silent flags works correctly."""
+    mocker.patch("time.sleep")
+    mock_bell = mocker.patch("rich.console.Console.bell")
+
+    mock_monotonic = MockMonotonic()
+    mocker.patch("time.monotonic", side_effect=mock_monotonic)
+    result = runner.invoke(app, ["3", "--break", "--silent"])
+    assert result.exit_code == 0
+    assert "Break Time: 3 Minutes" in result.output
+    assert "Break complete. Ready to focus?" in result.output
+    mock_bell.assert_not_called()
+
+
 def test_focus_sleep_bounds_check(mocker: MockerFixture) -> None:
     """Test that negative sleep intervals are bounded to 0."""
     mock_sleep = mocker.patch("time.sleep")
