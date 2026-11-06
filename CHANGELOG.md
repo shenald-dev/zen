@@ -1,7 +1,10 @@
 ## [Unreleased]
 **[Fixed]:** Fixed the mypy untyped-decorator error by adding the missing type ignore comment on the Typer command decorator.
+**[Fixed]:** Fixed mypy untyped-decorator issue by reverting a previous commit that removed type ignores and correctly configured mypy's `ignore_missing_imports`.
 **[Optimized]:** ATLAS-WARDEN routine pruning and ledger update.
 **[Optimized]:** Validated codebase structural integrity, ran adversarial QA, and ensured testing and static analysis fully pass. No regressions or dead code found after previous optimization agent's run.
+**[Optimized]:** Refactored tests to use properly encapsulated callable classes for stateful mocking to resolve strictly-typed MyPy checks and avoid dynamic attribute assignments.
+**[Assurance]:** Validated codebase structural integrity, ran adversarial QA, and ensured testing and static analysis fully pass. No regressions or dead code found after previous agent codebase maintenance. Consolidated redundant CHANGELOG headers and verified functionality of combined --break and --silent flags via newly added test.
 
 ### Changed
 * **[Fixed]:** Fixed UX inconsistency for break sessions, differentiating the progress bar color and pause messages.
@@ -208,11 +211,3 @@
 - **[Dependencies]:** Bumped minimum dependency baselines to `rich>=13.9.0` and `typer>=0.12.0`.
 - **[Testing]:** Added missing test coverage for the root CLI app module execution path.
 
-## [Unreleased]
-**[Fixed]:** Fixed mypy untyped-decorator issue by reverting a previous commit that removed type ignores and correctly configured mypy's `ignore_missing_imports`.
-
-## [Unreleased]
-**[Optimized]:** Refactored tests to use properly encapsulated callable classes for stateful mocking to resolve strictly-typed MyPy checks and avoid dynamic attribute assignments.
-
-## [Unreleased]
-**[Assurance]:** Validated codebase structural integrity, ran adversarial QA, and ensured testing and static analysis fully pass. No regressions or dead code found after previous agent codebase maintenance.
