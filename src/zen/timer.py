@@ -153,7 +153,6 @@ def focus(  # pylint: disable=too-many-statements,too-many-branches
         try:
             if console is not None:
                 console.print("\n")
-                from rich.panel import Panel
                 interrupted = Panel.fit(
                     f"[bold yellow]{msg}[/bold yellow]",
                     border_style="yellow"
