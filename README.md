@@ -45,12 +45,18 @@
 ### Installation
 
 Install via pip:
+```bash
+pip install zen-timer
+```
 ---
 
 ## 💻 Comprehensive Usage
 
 ### Start a Session
 To start a default 25-minute Pomodoro session:
+```bash
+zen
+```
 ### Advanced Usage
 
 **zen** supports additional CLI flags to customize your workflow:
@@ -66,6 +72,9 @@ To start a default 25-minute Pomodoro session:
   ```
 
 You can also combine these flags for a silent break session:
+```bash
+zen 15 --break --silent
+```
 ---
 
 ## 🤝 Contributing

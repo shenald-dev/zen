@@ -176,6 +176,20 @@ def test_version_not_found(mocker: MockerFixture) -> None:
     assert "zen-timer version unknown" in result.output
 
 
+def test_focus_break_and_silent_flags(mocker: MockerFixture) -> None:
+    """Test that combining --break and --silent flags works correctly."""
+    mocker.patch("time.sleep")
+    mock_bell = mocker.patch("rich.console.Console.bell")
+
+    mock_monotonic = MockMonotonic()
+    mocker.patch("time.monotonic", side_effect=mock_monotonic)
+    result = runner.invoke(app, ["3", "--break", "--silent"])
+    assert result.exit_code == 0
+    assert "Break Time: 3 Minutes" in result.output
+    assert "Break complete. Ready to focus?" in result.output
+    mock_bell.assert_not_called()
+
+
 def test_focus_sleep_bounds_check(mocker: MockerFixture) -> None:
     """Test that negative sleep intervals are bounded to 0."""
     mock_sleep = mocker.patch("time.sleep")
@@ -263,3 +277,36 @@ def test_main(mocker: MockerFixture) -> None:
     from zen.timer import main
     main()
     mock_app.assert_called_once()
+
+
+def test_focus_sleep_undershoot_prevention(mocker: MockerFixture) -> None:
+    """Test that a tiny sleep undershoot does not cause a spin loop."""
+    mock_sleep = mocker.patch("time.sleep")
+
+    class MockMonotonicUndershoot:  # pylint: disable=too-few-public-methods
+        """Mock monotonic clock simulating sleep undershoots."""
+        def __init__(self) -> None:
+            self.call_count = 0
+
+        def __call__(self) -> float:
+            if self.call_count == 0:
+                self.call_count += 1
+                return 0.0  # Start time
+            if self.call_count == 1:
+                self.call_count += 1
+                return 0.995  # Loop time, sleep_interval = 1.0 - 0.995 = 0.005
+            if self.call_count == 2:
+                self.call_count += 1
+                return 0.996  # After UI refresh block
+            self.call_count += 1
+            return 60.0  # Exit loop
+
+    mock_monotonic = MockMonotonicUndershoot()
+    mocker.patch("time.monotonic", side_effect=mock_monotonic)
+
+    result = runner.invoke(app, ["1"])
+    assert result.exit_code == 0
+
+    # We should have slept for exactly 0.01 seconds due to the minimum bound
+    # because the raw sleep interval was 0.005 (1.0 - 0.995).
+    mock_sleep.assert_any_call(0.01)

@@ -125,7 +125,7 @@ def focus(  # pylint: disable=too-many-statements,too-many-branches
                 remaining = seconds - elapsed
 
                 # Drift-compensated sleep to maintain exact 1Hz refresh rate
-                sleep_interval = 1.0 - (elapsed % 1.0)
+                sleep_interval = max(0.01, 1.0 - (elapsed % 1.0))
                 time.sleep(max(0, min(sleep_interval, remaining)))
 
         console.print("\n")
@@ -153,7 +153,6 @@ def focus(  # pylint: disable=too-many-statements,too-many-branches
         try:
             if console is not None:
                 console.print("\n")
-                from rich.panel import Panel
                 interrupted = Panel.fit(
                     f"[bold yellow]{msg}[/bold yellow]",
                     border_style="yellow"

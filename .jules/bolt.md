@@ -166,3 +166,7 @@ Recalculate elapsed time immediately before calculating the sleep interval on *e
 ## 2026-10-31 — Preserve Mathematical Guards in Sleep Loops
 - **Learning:** While expressions like `max(0, min(sleep_interval, remaining))` may look like over-engineered defensive programming or redundant max/min calls, they are critical mathematical guards in drift-compensated wait loops. If a sleep interval overshoots the remaining duration (even by milliseconds), removing `min(..., remaining)` will cause the loop to overshoot its target termination time. Removing `max(0, ...)` risks passing negative floats to `time.sleep()`, resulting in a `ValueError`.
 - **Action:** Never optimize away `min` and `max` bounds checks inside drift-compensated sleep loops unless the mathematical guarantee is definitively handled elsewhere in the logic.
+
+## 2023-10-27 — Prevent CPU spikes on sleep undershoot
+- **Learning:** `time.sleep()` in Python is not perfectly accurate and may wake up slightly early. In a drift-compensated loop (e.g., `sleep_interval = 1.0 - (elapsed % 1.0)`), an undershoot near the 1-second boundary causes the next loop to calculate a microscopic sleep interval, causing rapid spinning until the full second boundary crosses.
+- **Action:** Any drift-compensated sleep loops must enforce a small minimum bound (e.g., `max(0.01, ...)` bounded by `remaining` time) to prevent microscopic sleep intervals and CPU pegging.
