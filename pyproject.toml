@@ -1,6 +1,6 @@
 [project]
 name = "zen-timer"
-version = "0.2.0"
+version = "0.2.1"
 description = "🧘 Deep-work timer. Simple terminal app for focus sessions. No GUI, just flow."
 readme = "README.md"
 license = { text = "MIT" }

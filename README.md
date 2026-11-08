@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo.png" alt="zen Logo" width="250" />
+  <img src="https://raw.githubusercontent.com/shenald-dev/zen/main/assets/logo.png" alt="zen Logo" width="250" />
   
   <br/>
 
