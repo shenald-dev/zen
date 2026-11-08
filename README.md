@@ -1,4 +1,3 @@
-# README.md
 <div align="center">
   <img src="assets/logo.png" alt="zen Logo" width="250" />
   
@@ -10,6 +9,7 @@
 
   <br/>
   
+  [![PyPI version](https://img.shields.io/pypi/v/zen-timer.svg)](https://pypi.org/project/zen-timer/)
   [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://python.org)
   [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 </div>
@@ -44,9 +44,16 @@
 
 ### Installation
 
-Install via pip:
+Install directly via `pip`:
 ```bash
 pip install zen-timer
+```
+
+Or install via `pipx` or `uv`:
+```bash
+pipx install zen-timer
+# or
+uv tool install zen-timer
 ```
 ---
 

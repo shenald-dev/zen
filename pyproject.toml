@@ -2,10 +2,28 @@
 name = "zen-timer"
 version = "0.2.0"
 description = "🧘 Deep-work timer. Simple terminal app for focus sessions. No GUI, just flow."
+readme = "README.md"
+license = { text = "MIT" }
 authors = [
-    { name = "shenald-dev", email = "bot@shenald.dev" }
+    { name = "Shenal Diluksha", email = "shenald@users.noreply.github.com" }
+]
+maintainers = [
+    { name = "shenald-dev", email = "shenald@users.noreply.github.com" }
 ]
 requires-python = ">=3.10"
+keywords = ["zen", "timer", "pomodoro", "focus", "deep-work", "cli", "tui", "productivity"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Utilities"
+]
 dependencies = [
     "rich>=13.9.0,<16.0.0",
     "typer>=0.12.0,<1.0.0"
@@ -22,6 +40,13 @@ dev = [
 
 [project.scripts]
 zen = "zen.timer:main"
+
+[project.urls]
+Homepage = "https://github.com/shenald-dev/zen"
+Documentation = "https://github.com/shenald-dev/zen#readme"
+Repository = "https://github.com/shenald-dev/zen"
+Issues = "https://github.com/shenald-dev/zen/issues"
+Changelog = "https://github.com/shenald-dev/zen/blob/main/CHANGELOG.md"
 
 [build-system]
 requires = ["setuptools>=61.0"]
