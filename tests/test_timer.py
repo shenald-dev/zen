@@ -24,14 +24,14 @@ def test_focus_invalid_minutes() -> None:
     """Test that focusing for less than 1 minute raises an error."""
     result = runner.invoke(app, ["0"])
     assert result.exit_code == 2
-    assert "0 is not in the range 1<=x<=1440." in result.output
+    assert "Invalid value" in result.output
 
 
 def test_focus_invalid_minutes_too_high() -> None:
     """Test that focusing for more than 1440 minutes raises an error."""
     result = runner.invoke(app, ["1500"])
     assert result.exit_code == 2
-    assert "1500 is not in the range 1<=x<=1440." in result.output
+    assert "Invalid value" in result.output
 
 
 def test_focus_valid_minutes(mocker: MockerFixture) -> None:

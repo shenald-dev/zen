@@ -73,7 +73,7 @@ zen
   zen 5 --break
   ```
 
-- **`--silent`**: Run the timer without sending desktop notifications upon completion. Perfect for environments where notifications are distracting or unsupported.
+- **`--silent`**: Run the timer without the terminal completion bell. Perfect for quiet environments where the bell is distracting or unsupported.
   ```bash
   zen 25 --silent
   ```

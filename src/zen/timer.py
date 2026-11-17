@@ -32,7 +32,7 @@ def focus(  # pylint: disable=too-many-statements,too-many-branches
         False, "--break", help="Start a break session."
     ),
     silent: bool = typer.Option(
-        False, "--silent", help="Run without desktop notifications."
+        False, "--silent", help="Run without the terminal completion bell."
     ),
     version: bool = typer.Option(  # pylint: disable=unused-argument
         None,
